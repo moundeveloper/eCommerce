@@ -18,7 +18,10 @@ const show = ref(true)
 
 watchEffect(() => {
     if (route.fullPath === "/home") {
-        show.value = !show.value
+        show.value = false
+        console.log(show.value)
+    } else {
+        show.value = true
     }
 })
 </script>
