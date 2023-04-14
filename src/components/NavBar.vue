@@ -1,29 +1,20 @@
 <template>
-    <nav class="bg-red">
-        <ul>
-            <li><router-link to="/">Go to welcome</router-link></li>
-            <li><router-link to="/home">Go to home</router-link></li>
-        </ul>
+    <!-- Contenuto: logo, nav con i link & link fuori dalla nav per il carrello -->
+    <nav class="flex gap-4 justify-center">
+        <router-link to="/">home</router-link>
+        <router-link to="/customize-shirt">customize</router-link>
+        <router-link to="/catalog">catalog</router-link>
+        <router-link to="/cart">cart</router-link>
+
+        <!-- Le icone si usano in questo modo e le cercate da https://oh-vue-icons.js.org/docs 
+            il name delle icone è sempre in lower-case con il trattino
+        -->
+        <v-icon name="md-add" />
     </nav>
-    <p v-if="show">sdhakjhdkjsahdkas</p>
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
-import { ref, watchEffect } from 'vue';
 
-const route = useRoute()
-const show = ref(true)
-
-
-watchEffect(() => {
-    if (route.fullPath === "/home") {
-        show.value = false
-        console.log(show.value)
-    } else {
-        show.value = true
-    }
-})
 </script>
 
 <style scoped></style>

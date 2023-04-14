@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bootstrap": "^5.2.3",
+    "oh-vue-icons": "^1.0.0-rc3",
+    "pinia": "^2.0.34",
     "three": "^0.151.3",
     "unocss": "^0.51.4",
     "vue": "^3.2.47",

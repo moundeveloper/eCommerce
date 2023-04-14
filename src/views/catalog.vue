@@ -1,6 +1,6 @@
 <template>
     <div class="bg-dark h-full">
-        Home
+        <h1>Catalog</h1>
     </div>
 </template>
 
@@ -8,4 +8,4 @@
 
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped></style>

@@ -1,7 +1,4 @@
 <template>
-    <!-- Se hai aperto questo file per errore 
-        torna sulla tua strada 
-        e non toccare niente che senno ti 🔪🩸💀 -->
     <div id="container"></div>
 </template>
 
@@ -13,24 +10,18 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DecalGeometry } from 'three/addons/geometries/DecalGeometry.js';
 import { MeshSurfaceSampler } from 'three/addons/math/MeshSurfaceSampler.js';
 
-let renderer, scene, camera, ambientLight, controls
+let renderer, scene, camera, ambientLight
 
 const init = () => {
-    // Initialize renderer
-    renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-    renderer.setSize(window.innerWidth / 1.4, window.innerHeight / 1.4);
-    renderer.setClearColor(0x00000000, 0);
+    renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true })
+    renderer.setSize(window.innerWidth / 1.4, window.innerHeight / 1.4)
+    renderer.setClearColor(0x00000000, 0)
     document.querySelector('#container').appendChild(renderer.domElement);
+    scene = new THREE.Scene()
 
-    // Initialize scene
-    scene = new THREE.Scene();
-
-    // Initialize camera
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 2;
-
-    // Add controls
-    controls = new OrbitControls(camera, renderer.domElement);
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+    camera.position.z = 2
+    const controls = new OrbitControls(camera, renderer.domElement);
     controls.enablePan = false;
     controls.minAzimuthAngle = -Math.PI / 2;
     controls.maxAzimuthAngle = Math.PI / 2;
@@ -39,37 +30,29 @@ const init = () => {
     controls.minDistance = 0.5;
     controls.maxDistance = 1;
     controls.update();
-
-    // Add axes helper
     const axesHelper = new THREE.AxesHelper(5);
     scene.add(axesHelper);
-
-    // Add lights
-    ambientLight = new THREE.AmbientLight(0xffffff, 1);
-    const directionLight = new THREE.DirectionalLight(0xffffff, 0.2);
+    ambientLight = new THREE.AmbientLight(0xffffff, 1)
+    const directionLight = new THREE.DirectionalLight(0xffffff, 0.2)
     directionLight.position.set(75, -300, 1000);
-    directionLight.castShadow = true;
-    const pointLight = new THREE.PointLight(0xffffff, 0.1);
-    pointLight.position.set(0, 300, 500);
-    scene.add(pointLight);
-    scene.add(ambientLight);
-    scene.add(directionLight);
+    directionLight.castShadow = true
+    const pointLight = new THREE.PointLight(0xffffff, 0.1)
+    /* x y z */
+    pointLight.position.set(0, 300, 500)
+    scene.add(pointLight)
+    scene.add(ambientLight)
+    scene.add(directionLight)
 
-    // Load T-shirt 3D model
     const loader = new GLTFLoader()
     loader.load('/assets/shirt_baked.gltf', (gltf) => {
         const model = gltf.scene
         model.position.set(0, 0, 0)
         const s = 1
         model.scale.set(s, s, s)
-
-        // Create T-shirt material
         const modelMaterial = new THREE.MeshStandardMaterial({
             color: 0x89627D, side: THREE.DoubleSide, roughness: 1,
             metalness: 0,
         });
-
-        // Apply t-shirt material to node
         model.traverse((node) => {
             if (node.isMesh) {
                 node.material = modelMaterial;
@@ -77,8 +60,8 @@ const init = () => {
         });
 
         scene.add(model)
+        /* const clock = new THREE.Clock() */
 
-        // Get mesh from GTLF model
         const mesh = model.getObjectByName('T_Shirt_male');
 
         // Load the decal texture
@@ -130,8 +113,13 @@ const init = () => {
 
         function animate() {
             requestAnimationFrame(animate)
-            // Render the scene and enable control
+
+
+            /* const delta = clock.getDelta()
+            model.rotation.y += delta  */
+
             controls.update()
+            // Render the scene
             renderer.render(scene, camera)
         }
 

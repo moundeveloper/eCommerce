@@ -1,6 +1,6 @@
 <template>
     <div class="bg-dark h-full">
-        Home
+        <h1>Cart</h1>
     </div>
 </template>
 

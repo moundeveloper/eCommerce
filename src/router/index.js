@@ -1,17 +1,29 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/home.vue";
-import Welcome from "../views/welcome.vue";
+import CustomizeShirt from "../views/customize-shirt.vue";
+import Catalog from "../views/catalog.vue";
+import Cart from "../views/cart.vue";
 
 const routes = [
   {
     path: "/",
-    name: "welcome",
-    component: Welcome,
-  },
-  {
-    path: "/home",
     name: "home",
     component: Home,
+  },
+  {
+    path: "/customize-shirt",
+    name: "customize-shirt",
+    component: CustomizeShirt,
+  },
+  {
+    path: "/catalog",
+    name: "catalog",
+    component: Catalog,
+  },
+  {
+    path: "/cart",
+    name: "cart",
+    component: Cart,
   },
 ];
 
