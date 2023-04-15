@@ -2,7 +2,9 @@
     <!-- Se hai aperto questo file per sbaglio 
         torna sulla tua strada 
         e non toccare niente che senno ti 🔪🩸💀 -->
-    <div id="container"></div>
+    <div class="canvas-container">
+        <div id="container"></div>
+    </div>
 </template>
 
 <script setup>
@@ -39,7 +41,8 @@ const init = () => {
 
     // Initialize renderer
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-    renderer.setSize(window.innerWidth / 1.4, window.innerHeight / 1.4);
+    const aspectRatio = 1.4
+    renderer.setSize(window.innerWidth / aspectRatio, window.innerHeight / aspectRatio);
     renderer.setClearColor(0x00000000, 0);
     renderer.alpha = true;
 
@@ -64,8 +67,8 @@ const init = () => {
     controls.maxAzimuthAngle = Math.PI / 2; */
     controls.minPolarAngle = 0;
     controls.maxPolarAngle = Math.PI / 2.5;
-    controls.minDistance = 0.5;
-    controls.maxDistance = 1;
+    controls.minDistance = 2.6;
+    controls.maxDistance = 3.6;
     controls.update();
 
     // Add axes helper
@@ -89,9 +92,8 @@ const init = () => {
     loader.load('/assets/shirt_baked.gltf', (gltf) => {
         const model = gltf.scene
         model.position.set(0, 0, 0)
-        const s = 1
+        const s = 5
         model.scale.set(s, s, s)
-
 
         watchEffect(() => {
 
@@ -109,7 +111,6 @@ const init = () => {
                     node.material = modelMaterial;
                 }
             });
-
             scene.add(model)
 
             // Get mesh from GTLF model
@@ -123,8 +124,8 @@ const init = () => {
                 // This code will run when the texture has finished loading
                 texture.image.width = 500
                 texture.image.height = 500
-                canvas.width = texture.image.width + 600   // Add 20 pixels of padding on each side
-                canvas.height = texture.image.height + 600
+                canvas.width = texture.image.width + 2000   // Add 20 pixels of padding on each side
+                canvas.height = texture.image.height + 2000
                 const context = canvas.getContext('2d');
                 context.fillStyle = 'rgba(0, 0, 0, 0)'; // Set transparent background
                 context.fillRect(0, 0, canvas.width, canvas.height);
@@ -142,7 +143,10 @@ const init = () => {
                 });
 
                 // Create a decal geometry
-                const decalGeometry = new DecalGeometry(mesh, new THREE.Vector3(0, 0.1, 0.12), new THREE.Euler(-0.4, 0, 0), new THREE.Vector3(0.2, 0.2, 0.2));
+                const decalGeometry = new DecalGeometry(mesh, new THREE.Vector3(0, 0.4, 1), new THREE.Euler(-0.4, 0, 0), new THREE.Vector3(2, 2, 2));
+
+                decalGeometry.scale(1 / s, 1 / s, 1 / s); // Scale the decal by the inverse of the model's scale
+
                 // Sample the surface of the mesh
                 const sampler = new MeshSurfaceSampler(mesh).build();
 
@@ -187,7 +191,19 @@ onMounted(() => {
 </script>
 
 <style  scoped>
+.canvas-container {
+    outline: 1px solid blue;
+    display: grid;
+    place-items: center;
+    max-width: 40%;
+    height: fit-content;
+    overflow: hidden;
+}
+
 #container {
-    width: 100%;
+    width: fit-content;
+    outline: 1px solid red;
+    overflow: hidden;
+    position: relative;
 }
 </style>

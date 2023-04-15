@@ -1,9 +1,10 @@
 <template>
-    <!-- Se hai aperto questo file per errore 
+    <!-- Se hai aperto questo file per sbaglio 
         torna sulla tua strada 
         e non toccare niente che senno ti 🔪🩸💀 -->
-    <div id="container"></div>
-    <button @click="snapshot">snap</button>
+    <div class="canvas-container">
+        <div id="container"></div>
+    </div>
 </template>
 
 <script setup>
@@ -19,17 +20,29 @@ const props = defineProps({
     img: String
 })
 
+
 const currentColor = ref(props.color)
 const currentImg = ref("/assets/logo.jpg")
 
+
 let renderer, scene, camera, controls, renderTarget
+
+const snapshot = () => {
+    const snapshot = renderer.domElement.toDataURL('image/png');
+    // Do something with the snapshot (e.g. display it in an img element)
+    const link = document.createElement('a');
+    link.href = snapshot;
+    link.download = 'Download.png';
+    link.click();
+}
 
 const init = () => {
 
 
     // Initialize renderer
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-    renderer.setSize(window.innerWidth / 1.4, window.innerHeight / 1.4);
+    const aspectRatio = 1.4
+    renderer.setSize(window.innerWidth / aspectRatio, window.innerHeight / aspectRatio);
     renderer.setClearColor(0x00000000, 0);
     renderer.alpha = true;
 
@@ -54,13 +67,13 @@ const init = () => {
     controls.maxAzimuthAngle = Math.PI / 2; */
     controls.minPolarAngle = 0;
     controls.maxPolarAngle = Math.PI / 2.5;
-    controls.minDistance = 0.5;
-    controls.maxDistance = 1;
+    /*     controls.minDistance = 0.55;
+        controls.maxDistance = 0.7; */
     controls.update();
 
     // Add axes helper
-    const axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper);
+    /* const axesHelper = new THREE.AxesHelper(5);
+    scene.add(axesHelper); */
 
     // Add lights
     const directionLight = new THREE.DirectionalLight(0xffffff, 0.2);
@@ -88,7 +101,6 @@ const init = () => {
             currentColor.value = props.color
             currentImg.value = props.img === null ? currentImg.value : props.img;
             // Create T-shirt material
-            console.log(currentImg.value)
             const modelMaterial = new THREE.MeshStandardMaterial({
                 color: currentColor.value, side: THREE.DoubleSide, roughness: 1,
                 metalness: 0,
@@ -112,7 +124,6 @@ const init = () => {
             const textureLoader = new THREE.TextureLoader();
             textureLoader.load(currentImg.value, (texture) => {
                 // This code will run when the texture has finished loading
-                console.log(texture)
                 texture.image.width = 500
                 texture.image.height = 500
                 canvas.width = texture.image.width + 600   // Add 20 pixels of padding on each side
@@ -165,20 +176,13 @@ const init = () => {
             controls.update()
             renderer.render(scene, camera, renderTarget)
         }
-
         animate()
     })
-
 }
 
-const snapshot = () => {
-    const snapshot = renderer.domElement.toDataURL('image/png');
-
-    // Do something with the snapshot (e.g. display it in an img element)
-    const img = document.createElement('img');
-    img.src = snapshot;
-    document.body.appendChild(img);
-}
+defineExpose({
+    snapshot
+})
 
 onMounted(() => {
     init()
@@ -186,7 +190,19 @@ onMounted(() => {
 </script>
 
 <style  scoped>
+.canvas-container {
+    outline: 1px solid blue;
+    display: grid;
+    place-items: center;
+    max-width: 40%;
+    height: fit-content;
+    overflow: hidden;
+}
+
 #container {
-    width: 100%;
+    width: fit-content;
+    outline: 1px solid red;
+    overflow: hidden;
+    position: relative;
 }
 </style>
