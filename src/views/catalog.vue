@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-dark h-full">
+    <div class="h-full">
         <h1>Catalog</h1>
     </div>
 </template>

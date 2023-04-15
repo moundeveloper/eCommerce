@@ -1,11 +1,11 @@
 <template>
-    <div class="bg-dark h-full">
+    <div class="h-full">
         Home
     </div>
 </template>
 
 <script setup>
-
 </script>
+
 
 <style scoped></style>
