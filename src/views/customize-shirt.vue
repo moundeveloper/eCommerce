@@ -197,6 +197,7 @@ const changeColor = (newColor) => {
 
 .buttons button {
     cursor: pointer;
+    text-transform: capitalize;
 }
 
 @media screen and (min-width: 900px) {
