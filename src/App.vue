@@ -4,10 +4,10 @@ import NavBar from './components/NavBar.vue';
 
 <template>
     <div class="custom-container flex flex-col">
-        <header class="py-1 ">
+        <header class="py-2 z-2">
             <NavBar />
         </header>
-        <main class="grow ">
+        <main class="grow z-2">
             <router-view :key="$route.fullPath"></router-view>
         </main>
     </div>
@@ -22,6 +22,8 @@ import NavBar from './components/NavBar.vue';
     background: -ms-linear-gradient(43deg, rgb(27, 22, 26) 0%, rgb(76, 56, 70) 100%);
     background: -moz-linear-gradient(43deg, rgb(27, 22, 26) 0%, rgb(76, 56, 70) 100%);
     background: linear-gradient(47deg, rgb(27, 22, 26) 0%, rgb(76, 56, 70) 100%);
-
+    background-image: url("/assets/gradient.png");
+    background-size: cover;
+    z-index: 0;
 }
 </style>

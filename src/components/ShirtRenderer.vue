@@ -41,11 +41,10 @@ const init = () => {
 
     // Initialize renderer
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-    const aspectRatio = 1.4
+    const aspectRatio = 1.3
     renderer.setSize(window.innerWidth / aspectRatio, window.innerHeight / aspectRatio);
     renderer.setClearColor(0x00000000, 0);
     renderer.alpha = true;
-
     renderTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, {
         format: THREE.RGBAFormat,
         transparent: true,
@@ -67,9 +66,23 @@ const init = () => {
     controls.maxAzimuthAngle = Math.PI / 2; */
     controls.minPolarAngle = 0;
     controls.maxPolarAngle = Math.PI / 2.5;
-    controls.minDistance = 2.6;
-    controls.maxDistance = 3.6;
+    if (window.innerWidth < 900) {
+        console.log("bruh")
+        controls.minDistance = 4.8
+    } else {
+        controls.minDistance = 3.5;
+    }
+    controls.maxDistance = 7;
     controls.update();
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth < 900) {
+            console.log("bruh")
+            controls.minDistance = 4.6
+        } else {
+            controls.minDistance = 3;
+        }
+    })
 
     // Add axes helper
     /* const axesHelper = new THREE.AxesHelper(5);
@@ -181,6 +194,8 @@ const init = () => {
     })
 }
 
+
+
 defineExpose({
     snapshot
 })
@@ -192,18 +207,26 @@ onMounted(() => {
 
 <style  scoped>
 .canvas-container {
-    outline: 1px solid blue;
     display: grid;
     place-items: center;
-    max-width: 40%;
-    height: fit-content;
+    max-width: 100%;
+    height: 22rem;
     overflow: hidden;
+}
+
+@media screen and (min-width: 900px) {
+    .canvas-container {
+        display: grid;
+        place-items: center;
+        max-width: 40%;
+        height: 30rem;
+        overflow: hidden;
+    }
 }
 
 #container {
     width: fit-content;
-    outline: 1px solid red;
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
 }
 </style>

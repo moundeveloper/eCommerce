@@ -41,11 +41,10 @@ const init = () => {
 
     // Initialize renderer
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-    const aspectRatio = 1.4
+    const aspectRatio = 1.3
     renderer.setSize(window.innerWidth / aspectRatio, window.innerHeight / aspectRatio);
     renderer.setClearColor(0x00000000, 0);
     renderer.alpha = true;
-
     renderTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, {
         format: THREE.RGBAFormat,
         transparent: true,
@@ -67,9 +66,23 @@ const init = () => {
     controls.maxAzimuthAngle = Math.PI / 2; */
     controls.minPolarAngle = 0;
     controls.maxPolarAngle = Math.PI / 2.5;
-    /*     controls.minDistance = 0.55;
-        controls.maxDistance = 0.7; */
+    if (window.innerWidth < 900) {
+        console.log("bruh")
+        controls.minDistance = 4.8
+    } else {
+        controls.minDistance = 3.5;
+    }
+    controls.maxDistance = 7;
     controls.update();
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth < 900) {
+            console.log("bruh")
+            controls.minDistance = 4.6
+        } else {
+            controls.minDistance = 3;
+        }
+    })
 
     // Add axes helper
     /* const axesHelper = new THREE.AxesHelper(5);
@@ -92,9 +105,8 @@ const init = () => {
     loader.load('/assets/shirt_baked.gltf', (gltf) => {
         const model = gltf.scene
         model.position.set(0, 0, 0)
-        const s = 1
+        const s = 5
         model.scale.set(s, s, s)
-
 
         watchEffect(() => {
 
@@ -112,7 +124,6 @@ const init = () => {
                     node.material = modelMaterial;
                 }
             });
-
             scene.add(model)
 
             // Get mesh from GTLF model
@@ -126,8 +137,8 @@ const init = () => {
                 // This code will run when the texture has finished loading
                 texture.image.width = 500
                 texture.image.height = 500
-                canvas.width = texture.image.width + 600   // Add 20 pixels of padding on each side
-                canvas.height = texture.image.height + 600
+                canvas.width = texture.image.width + 2000   // Add 20 pixels of padding on each side
+                canvas.height = texture.image.height + 2000
                 const context = canvas.getContext('2d');
                 context.fillStyle = 'rgba(0, 0, 0, 0)'; // Set transparent background
                 context.fillRect(0, 0, canvas.width, canvas.height);
@@ -145,7 +156,10 @@ const init = () => {
                 });
 
                 // Create a decal geometry
-                const decalGeometry = new DecalGeometry(mesh, new THREE.Vector3(0, 0.1, 0.12), new THREE.Euler(-0.4, 0, 0), new THREE.Vector3(0.2, 0.2, 0.2));
+                const decalGeometry = new DecalGeometry(mesh, new THREE.Vector3(0, 0.4, 1), new THREE.Euler(-0.4, 0, 0), new THREE.Vector3(2, 2, 2));
+
+                decalGeometry.scale(1 / s, 1 / s, 1 / s); // Scale the decal by the inverse of the model's scale
+
                 // Sample the surface of the mesh
                 const sampler = new MeshSurfaceSampler(mesh).build();
 
@@ -180,6 +194,8 @@ const init = () => {
     })
 }
 
+
+
 defineExpose({
     snapshot
 })
@@ -191,18 +207,26 @@ onMounted(() => {
 
 <style  scoped>
 .canvas-container {
-    outline: 1px solid blue;
     display: grid;
     place-items: center;
-    max-width: 40%;
-    height: fit-content;
+    max-width: 100%;
+    height: 22rem;
     overflow: hidden;
+}
+
+@media screen and (min-width: 900px) {
+    .canvas-container {
+        display: grid;
+        place-items: center;
+        max-width: 40%;
+        height: 30rem;
+        overflow: hidden;
+    }
 }
 
 #container {
     width: fit-content;
-    outline: 1px solid red;
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
 }
 </style>
