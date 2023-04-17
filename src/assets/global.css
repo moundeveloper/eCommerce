@@ -3,7 +3,9 @@
   padding: 0;
   box-sizing: border-box;
   color: white;
-  font-family: "Oswald", sans-serif;
+  outline: 1px solid orange;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
 }
 
 ul {
