@@ -3,11 +3,16 @@
   padding: 0;
   box-sizing: border-box;
   color: white;
-  outline: 1px solid orange;
+
   font-family: "Poppins", sans-serif;
   font-weight: bold;
 }
 
 ul {
   list-style: none;
+}
+h1 {
+  font-size: clamp(1rem, 10vw, 4rem);
+  font-family: Volkhov;
+  font-weight: 500;
 }
