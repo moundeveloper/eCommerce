@@ -24,25 +24,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import gsap from 'gsap';
 
-
-const titleRef = ref(null);
-
-onMounted(() => {
-  const words = titleRef.value.split('');
-  const spans = words.map(word => `<span>${word}</span>`);
-  title.value = spans.join(' ');
-  const letters = Array.from(titleRef.value.children);
-  console.log(letters)
-
-  gsap.set(letters, { y: '100%' });
-
-  letters.forEach((letter, index) => {
-    gsap.to(letter, { y: '0%', duration: 0.5, delay: index * 0.1 });
-  });
-});
 </script>
 
 <style scoped>
