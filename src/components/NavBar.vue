@@ -27,10 +27,10 @@
         
     </nav>
    
-    <router-link to="/cart"> 
-      <button class="btn"><v-icon name="md-shoppingbag-round" fill="black"/><span>CARRELO</span></button>
+    <router-link to="/cart" class="btn-link"> 
+      <button class="btn"><v-icon name="md-shoppingbag-round" fill="white"/><span>CARRELO</span></button>
     </router-link>
-    <button class="menu-button" @click="menushow"><v-icon name="md-menu" fill="black"/></button>
+    <button class="menu-button" @click="menushow"><v-icon name="md-menu" fill="white"/></button>
     
 </template>
 
@@ -63,8 +63,8 @@ a{
 }
 
 button{
-    background-color:white;
-    color: black;
+    background: transparent;
+    border: transparent;
     padding: 0.5rem 1rem;
     font-size: 1rem; 
     cursor: pointer;
@@ -74,12 +74,15 @@ button{
     right: 0;
    align-items: center;
 }
+.btn{
+  border:1px solid white;
+}
 nav {
   display: flex;
 }
 .btn span{
   display: flex;
-  color: black;
+  color: rgb(255, 255, 255);
 }
 .exit-button{
   display: none;
@@ -114,14 +117,20 @@ nav{
   .btn span{
     display: none;
   }
-  .btn{
-    display: none;
+  .btn-link{
+    display: block;
+    margin-left: auto;
+    margin-right: 8px;
   }
+
   .menu-button{
     display: block; 
   }
   .show {
     display: flex;
+  }
+  .btn{
+    border: transparent;
   }
 }
 </style>
