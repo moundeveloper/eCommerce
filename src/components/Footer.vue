@@ -76,9 +76,7 @@ body{
     font-weight: 500;
     position: relative;
     text-transform: uppercase;
-   font-family: sans-serif;
-
-    
+   font-family: sans-serif;  
 }
 .footer-col h4::before{
     content: '';

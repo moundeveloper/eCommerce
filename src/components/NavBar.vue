@@ -13,22 +13,40 @@
     </div>
 
   <!-- Contenuto: logo, nav con i link & link fuori dalla nav per il carrello -->
+ 
   <nav class="flex gap-4 justify-center">
+    <button class="exit-button"  @click="menuhide"><v-icon name="md-close" fill="black"/></button>
     <router-link to="/">Home</router-link>
     <router-link to="/customize-shirt">Customize</router-link>
     <router-link to="/catalog">Catalog</router-link>
-    <router-link to="/cart">Cart</router-link>
-
+  
 
     <!-- Le icone si usano in questo modo e le cercate da https://oh-vue-icons.js.org/docs 
             il name delle icone è sempre in lower-case con il trattino
         -->
+        
     </nav>
    
-  <button class="btn"><v-icon name="md-shoppingbag-round" fill="black"/>CARRELO</button>
+    <router-link to="/cart"> 
+      <button class="btn"><v-icon name="md-shoppingbag-round" fill="black"/><span>CARRELO</span></button>
+    </router-link>
+    <button class="menu-button" @click="menushow"><v-icon name="md-menu" fill="black"/></button>
+    
 </template>
 
-<script setup></script>
+<script setup>
+const menushow= ()=>{
+  console.log("menushow")
+  const nav = document.querySelector("nav")
+nav.classList.add("show")
+}
+const menuhide = ()=>{
+  console.log(menuhide)
+  const nav = document.querySelector("nav")
+  nav.classList.remove("show")
+}
+
+</script>
 
 <style scoped>
 a{
@@ -56,7 +74,54 @@ button{
     right: 0;
    align-items: center;
 }
-@media screen {
-    
+nav {
+  display: flex;
+}
+.btn span{
+  display: flex;
+  color: black;
+}
+.exit-button{
+  display: none;
+}
+nav{
+  display: flex;
+}
+.menu-button{
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+  nav {
+    position: absolute;
+    justify-self: flex-end;
+    flex-direction: column;
+    top: 0;
+    right: 0;
+    padding: 1rem 1.5rem;
+    background-color: rgb(255, 255, 255);
+    gap: 3rem;
+    height: 100vh;
+    justify-content:flex-start ;
+    display: none;
+  }
+  nav a{
+    color: black;
+  }
+  .exit-button{
+   display: block;
+ align-self: flex-end;
+  }
+  .btn span{
+    display: none;
+  }
+  .btn{
+    display: none;
+  }
+  .menu-button{
+    display: block; 
+  }
+  .show {
+    display: flex;
+  }
 }
 </style>
