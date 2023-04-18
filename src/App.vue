@@ -5,13 +5,13 @@ import Footer from './components/Footer.vue';
 
 <template>
     <div class="custom-container flex flex-col">
-        <header class="py-2 px-7 z-2 flex items-center justify-between" >
+        <header class="py-2 px-7 z-2 flex items-center justify-between">
             <NavBar />
         </header>
         <main class="grow z-2">
             <router-view :key="$route.fullPath"></router-view>
         </main>
-           <Footer />
+        <Footer />
     </div>
 </template>
 
@@ -26,5 +26,11 @@ import Footer from './components/Footer.vue';
     background-image: url("/assets/gradient.png");
     background-size: cover;
     z-index: 0;
+}
+
+header {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    z-index: 4;
 }
 </style>

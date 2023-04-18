@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full flex justify-center">
+  <div class="h-full flex justify-center my-12">
     <div class="left-part">
       <h1 ref="titleRef">
         We are looking <br />
@@ -30,7 +30,7 @@
 <style scoped>
 .h-full {
   justify-content: center;
-  gap: 15rem;
+  gap: 20rem;
   align-items: center;
 }
 
@@ -41,17 +41,22 @@
   align-items: flex-start;
 }
 
+h1 {
+  font-size: clamp(3rem, 4vw, 3.5rem);
+}
+
 p {
-  line-height: 1rem;
   font-weight: 200;
-  font-size: 0.85rem;
+  font-size: 1.2rem;
+  max-width: 30ch;
   font-family: "Poppins", sans-serif;
 }
 
 button {
-  padding: 0.3rem 1.5rem;
-  border-radius: 10%;
+  padding: 0.4rem 1.5rem;
+  border-radius: 0.5rem;
   background-color: blueviolet;
+  border: transparent;
 }
 
 .right-part {
