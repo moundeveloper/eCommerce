@@ -1,7 +1,7 @@
 <template>
   <div class="h-full flex justify-center">
     <div class="left-part">
-      <h1>
+      <h1 ref="titleRef">
         We are looking <br />
         to make you <br />
         Awesome.
@@ -17,14 +17,33 @@
     <div class="right-part">
       <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHMKLi3j-EDHh86ytdhRM1rQh8S41CJ7RhSGTu5nyi11wlNZLMzl0G4JrUL5k8rFocFzI&usqp=CAU"
-        alt=""
-      />
+        alt="" />
       <div class="slider">aaaaaaaaaaaa</div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, onMounted } from 'vue';
+import gsap from 'gsap';
+
+
+const titleRef = ref(null);
+
+onMounted(() => {
+  const words = titleRef.value.split('');
+  const spans = words.map(word => `<span>${word}</span>`);
+  title.value = spans.join(' ');
+  const letters = Array.from(titleRef.value.children);
+  console.log(letters)
+
+  gsap.set(letters, { y: '100%' });
+
+  letters.forEach((letter, index) => {
+    gsap.to(letter, { y: '0%', duration: 0.5, delay: index * 0.1 });
+  });
+});
+</script>
 
 <style scoped>
 .h-full {
@@ -32,6 +51,7 @@
   gap: 15rem;
   align-items: center;
 }
+
 .left-part {
   display: flex;
   flex-direction: column;
@@ -45,17 +65,20 @@ p {
   font-size: 0.85rem;
   font-family: "Poppins", sans-serif;
 }
+
 button {
   padding: 0.3rem 1.5rem;
   border-radius: 10%;
   background-color: blueviolet;
 }
+
 .right-part {
   flex-direction: column;
   align-items: center;
 }
-.slider {
-}
+
+.slider {}
+
 @media screen and (max-width: 900px) {
   .h-full {
     flex-direction: column;
@@ -64,9 +87,11 @@ button {
     padding-right: 1rem;
     gap: 5rem;
   }
+
   .left-part {
     padding-top: 2rem;
   }
+
   .right-part {
     display: flex;
     gap: 1rem;
