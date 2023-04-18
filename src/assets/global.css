@@ -3,14 +3,9 @@
   padding: 0;
   box-sizing: border-box;
   color: white;
-<<<<<<< HEAD
-  font-family: "Oswald", sans-serif;
-  outline: 1px solid orange;
-=======
   outline: 1px solid orange;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
->>>>>>> 3c107a0ea781ec374ea9d6fb9794f29d7081b84c
 }
 
 ul {

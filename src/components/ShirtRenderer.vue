@@ -62,10 +62,10 @@ const init = () => {
     // Add controls
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enablePan = false;
-    /* controls.minAzimuthAngle = -Math.PI / 2;
-    controls.maxAzimuthAngle = Math.PI / 2; */
-    controls.minPolarAngle = 0;
-    controls.maxPolarAngle = Math.PI / 2.5;
+    /*controls.minAzimuthAngle = -Math.PI / 2;
+       controls.maxAzimuthAngle = Math.PI / 2; */
+    controls.minPolarAngle = Math.PI / 2;
+    controls.maxPolarAngle = Math.PI / 2;
     if (window.innerWidth < 900) {
         console.log("bruh")
         controls.minDistance = 4.8
