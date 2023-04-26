@@ -36,9 +36,11 @@ const snapshot = () => {
     link.click();
 }
 
+const getImage = () => {
+    return renderer.domElement.toDataURL('image/png');
+}
+
 const init = () => {
-
-
     // Initialize renderer
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     const aspectRatio = 1.3
@@ -62,10 +64,10 @@ const init = () => {
     // Add controls
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enablePan = false;
-    /* controls.minAzimuthAngle = -Math.PI / 2;
-    controls.maxAzimuthAngle = Math.PI / 2; */
-    controls.minPolarAngle = 0;
-    controls.maxPolarAngle = Math.PI / 2.5;
+    /*controls.minAzimuthAngle = -Math.PI / 2;
+       controls.maxAzimuthAngle = Math.PI / 2; */
+    controls.minPolarAngle = Math.PI / 2;
+    controls.maxPolarAngle = Math.PI / 2;
     if (window.innerWidth < 900) {
         console.log("bruh")
         controls.minDistance = 4.8
@@ -197,7 +199,8 @@ const init = () => {
 
 
 defineExpose({
-    snapshot
+    snapshot,
+    getImage
 })
 
 onMounted(() => {

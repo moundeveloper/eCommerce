@@ -36,9 +36,11 @@ const snapshot = () => {
     link.click();
 }
 
+const getImage = () => {
+    return renderer.domElement.toDataURL('image/png');
+}
+
 const init = () => {
-
-
     // Initialize renderer
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     const aspectRatio = 1.3
@@ -57,7 +59,7 @@ const init = () => {
 
     // Initialize camera
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 2;
+    camera.position.z = 3.6;
 
     // Add controls
     controls = new OrbitControls(camera, renderer.domElement);
@@ -67,20 +69,18 @@ const init = () => {
     controls.minPolarAngle = Math.PI / 2;
     controls.maxPolarAngle = Math.PI / 2;
     if (window.innerWidth < 900) {
-        console.log("bruh")
-        controls.minDistance = 4.8
+        controls.minDistance = 4.4
     } else {
-        controls.minDistance = 3.5;
+        controls.minDistance = 3.7;
     }
     controls.maxDistance = 7;
     controls.update();
 
     window.addEventListener('resize', () => {
         if (window.innerWidth < 900) {
-            console.log("bruh")
-            controls.minDistance = 4.6
+            controls.minDistance = 4.7
         } else {
-            controls.minDistance = 3;
+            controls.minDistance = 4;
         }
     })
 
@@ -102,14 +102,13 @@ const init = () => {
 
     // Load T-shirt 3D model
     const loader = new GLTFLoader()
-    loader.load('/assets/shirt_baked.gltf', (gltf) => {
+    loader.load('/assets/shirt_male.gltf', (gltf) => {
         const model = gltf.scene
         model.position.set(0, 0, 0)
         const s = 5
         model.scale.set(s, s, s)
 
         watchEffect(() => {
-
             currentColor.value = props.color
             currentImg.value = props.img === null ? currentImg.value : props.img;
             // Create T-shirt material
@@ -127,14 +126,12 @@ const init = () => {
             scene.add(model)
 
             // Get mesh from GTLF model
-            const mesh = model.getObjectByName('T_Shirt_male');
-
-            // Load the decal texture
+            const mesh = model.getObjectByName('T_shirt_male');
             let canvas = document.createElement('canvas');
             let paddedTexture = null
             const textureLoader = new THREE.TextureLoader();
             textureLoader.load(currentImg.value, (texture) => {
-                // This code will run when the texture has finished loading
+
                 texture.image.width = 500
                 texture.image.height = 500
                 canvas.width = texture.image.width + 2000   // Add 20 pixels of padding on each side
@@ -155,29 +152,20 @@ const init = () => {
                     side: THREE.FrontSide // Set the side property to FrontSide
                 });
 
+                console.log(texture)
+
                 // Create a decal geometry
-                const decalGeometry = new DecalGeometry(mesh, new THREE.Vector3(0, 0.4, 1), new THREE.Euler(-0.4, 0, 0), new THREE.Vector3(2, 2, 2));
+                const decalGeometry = new DecalGeometry(mesh, new THREE.Vector3(0, 0.05, 0.5), new THREE.Euler(-0.4, 0, 0), new THREE.Vector3(2, 2, 2));
 
                 decalGeometry.scale(1 / s, 1 / s, 1 / s); // Scale the decal by the inverse of the model's scale
 
-                // Sample the surface of the mesh
-                const sampler = new MeshSurfaceSampler(mesh).build();
-
-                // Apply the decal texture to the sampled surface
-                for (let i = 0; i < sampler.length; i++) {
-                    const position = sampler.getPosition(i);
-                    const normal = sampler.getNormal(i);
-                    const uv = sampler.getUv(i);
-                    const color = new THREE.Color().setHex(Math.random() * 0xffffff);
-
-                    decalGeometry.addDecal(position, normal, new THREE.Vector3(1, 1, 1), color, uv);
-                }
-
                 // Create a decal mesh
+
                 const decalMesh = new THREE.Mesh(decalGeometry, decalMaterial);
 
                 // Add the decal to the model's mesh
                 mesh.add(decalMesh);
+
             });
 
 
@@ -190,6 +178,7 @@ const init = () => {
             controls.update()
             renderer.render(scene, camera, renderTarget)
         }
+
         animate()
     })
 }
@@ -197,7 +186,8 @@ const init = () => {
 
 
 defineExpose({
-    snapshot
+    snapshot,
+    getImage
 })
 
 onMounted(() => {

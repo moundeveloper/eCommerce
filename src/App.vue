@@ -1,6 +1,11 @@
 <script setup>
 import NavBar from './components/NavBar.vue';
 import Footer from './components/Footer.vue';
+import { useCartStore } from './store/cart';
+
+const store = useCartStore()
+store.loadCart()
+
 </script>
 
 <template>
@@ -18,14 +23,9 @@ import Footer from './components/Footer.vue';
 <style scoped>
 .custom-container {
     /* Qui modificate l'altezza totale dell'intera app in vh*/
-    background: -webkit-linear-gradient(43deg, rgb(27, 22, 26) 0%, rgb(76, 56, 70) 100%);
-    background: -o-linear-gradient(43deg, rgb(27, 22, 26) 0%, rgb(76, 56, 70) 100%);
-    background: -ms-linear-gradient(43deg, rgb(27, 22, 26) 0%, rgb(76, 56, 70) 100%);
-    background: -moz-linear-gradient(43deg, rgb(27, 22, 26) 0%, rgb(76, 56, 70) 100%);
-    background: linear-gradient(47deg, rgb(27, 22, 26) 0%, rgb(76, 56, 70) 100%);
-    background-image: url("/assets/gradient.png");
-    background-size: cover;
+    min-height: 100vh;
     z-index: 0;
+    background: url("/assets/decoration.svg");
 }
 
 header {

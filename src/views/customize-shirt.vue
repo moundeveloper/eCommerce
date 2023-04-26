@@ -1,7 +1,7 @@
 <template>
     <div class="h-full flex flex-col justify-start gap-10 pt-10 customizer-wraper">
         <ShirtRenderer ref="shirtRendererRef" :color="color" :img="img" />
-        <div class="customize-wraper">
+        <div class="customize-wraper fancy-decoration">
             <h1>Personalizzazione T-shirt</h1>
 
             <div>
@@ -16,19 +16,19 @@
                 <span>size:</span>
                 <ul>
                     <li v-for="size in defaultSizes" :key="size" :class="{ 'active-size': size === activeSize }"
-                        class="radio-btn  grid place-items-center text-black" @click="changeSize(size)">{{
+                        class="radio-btn  grid place-items-center text-var(--secondary-color)" @click="changeSize(size)">{{
                             size }}</li>
                 </ul>
             </div>
             <div>
                 <span>quantità:</span>
-                <input type="number" name="" id="" min="1" value="1">
+                <input v-model="amount" type="number" name="" id="" min="1">
             </div>
             <div>
                 <span>immagine:</span>
                 <label for="img" class="flex gap-1 items-center">
                     <span>upload</span>
-                    <v-icon name="md-fileupload-round" fill="black" />
+                    <v-icon name="md-fileupload-round" fill="var(--secondary-color)" />
                 </label>
                 <input @change="previewImg" type="file" id="img" name="img">
             </div>
@@ -42,12 +42,10 @@
 
 <script setup>
 import ShirtRenderer from '../components/ShirtRenderer.vue';
+import { useCartStore } from '../store/cart';
+import { v4 as uuidv4 } from 'uuid';
 import { ref } from 'vue';
 
-const color = ref(0xE52121)
-const img = ref(null)
-const activeSize = ref(null);
-const shirtRendererRef = ref(null);
 const defaultColors = [{
     hexValue: "#E52121",
     value: 0xE52121
@@ -72,6 +70,15 @@ const defaultColors = [{
 
 const defaultSizes = ["XS", "S", "M", "L", "XL"]
 
+const store = useCartStore()
+const color = ref(0xE52121)
+const img = ref(null)
+const activeSize = ref(defaultSizes[0]);
+const shirtRendererRef = ref(null);
+const amount = ref(0)
+const model = ref("T-Shirt male")
+
+
 const snapshotCall = () => {
     shirtRendererRef.value.snapshot();
 }
@@ -82,7 +89,16 @@ const changeSize = (size) => {
 
 
 const addToCart = () => {
-
+    if (amount.value < 1) return
+    const newCartItem = {
+        id: uuidv4(),
+        model: model.value,
+        color: color.value,
+        size: activeSize.value,
+        amount: amount.value,
+        image: shirtRendererRef.value.getImage()
+    }
+    store.addCartItem(newCartItem)
 }
 
 const previewImg = async (event) => {
@@ -121,29 +137,29 @@ const changeColor = (newColor) => {
     aspect-ratio: 1;
     border-radius: 50%;
     border: transparent;
-    outline: 1px solid black;
+    outline: 1px solid var(--secondary-color);
     cursor: pointer;
     font-weight: 300;
 }
 
 .active-size {
-    color: white;
-    background-color: black;
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
 }
 
 .customize-wraper {
     padding: 2rem;
-    background-color: white;
+    background-color: var(--primary-color);
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
+    background-image: url("/assets/darker_decoration.svg");
+    background-size: cover;
 }
 
 .customize-wraper>*,
 .customize-wraper span {
-    color: black;
+    color: var(--secondary-color);
     text-transform: capitalize;
 }
 
@@ -152,7 +168,7 @@ const changeColor = (newColor) => {
 }
 
 .customize-wraper input[type="number"] {
-    color: black;
+    color: var(--secondary-color);
     max-width: 6ch;
     text-align: center;
 }
@@ -179,14 +195,14 @@ const changeColor = (newColor) => {
     padding: .5rem 0;
     border-radius: .5rem;
     border: transparent;
-    background-color: black;
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .customize-wraper button:last-child {
     outline: 1px solid;
     background-color: transparent;
-    color: black;
+    color: var(--secondary-color);
 }
 
 .buttons {
@@ -207,6 +223,7 @@ const changeColor = (newColor) => {
         gap: 2rem;
         align-items: center;
         padding: 0 4rem;
+        margin-bottom: 2rem;
     }
 
     .customize-wraper {
