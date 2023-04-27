@@ -145,7 +145,7 @@ body {
     fill: var(--secondary-color);
 }
 
-@media (max-width:567px) {
+@media (max-width:800px) {
     .footer-col {
         width: 100%;
         margin-bottom: 30px;

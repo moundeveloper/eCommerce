@@ -1,9 +1,4 @@
 <template>
-    {{ cartItem.model }}
-    {{ cartItem.color }}
-    {{ cartItem.amount }}
-    {{ cartItem.size }}
-
     <div class="img-wraper">
         <img :src="cartItem.image" alt="">
     </div>

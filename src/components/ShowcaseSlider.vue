@@ -3,12 +3,12 @@
         torna sulla tua strada 
         e non toccare niente che senno ti 🔪🩸💀 -->
     <div class="canvas-container">
-        <div id="container"></div>
+        <div ref="containerRef" id="container"></div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DecalGeometry } from 'three/addons/geometries/DecalGeometry.js';
@@ -16,9 +16,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const currentColor = ref(0xE52121)
 const currentImg = ref("/assets/logo.jpg")
+const containerRef = ref(null)
 
-
-let renderer, scene, camera, controls, renderTarget
+let renderer, scene, camera, controls, renderTarget, animationFrameId
 
 const init = () => {
     // Initialize renderer
@@ -32,7 +32,7 @@ const init = () => {
         transparent: true,
     });
 
-    document.querySelector('#container').appendChild(renderer.domElement);
+    containerRef.value.appendChild(renderer.domElement);
 
     // Initialize scene
     scene = new THREE.Scene();
@@ -43,25 +43,11 @@ const init = () => {
 
     window.addEventListener('resize', () => {
         if (window.innerWidth < 900) {
-            console.log("bruh")
-            controls.minDistance = 3.9
+            camera.position.z = 4.8;
         } else {
-            controls.minDistance = 3.9;
+            camera.position.z = 3.9;
         }
     })
-
-    // Add axes helper
-    /* const axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper); */
-
-    // Add controls
-    controls = new OrbitControls(camera, renderer.domElement);
-    controls.enablePan = false;
-    controls.minPolarAngle = Math.PI / 2;
-    controls.maxPolarAngle = Math.PI / 2;
-    controls.minDistance = 3.9
-    controls.maxDistance = 3.9;
-    controls.update();
 
     // Add lights
     const directionLight = new THREE.DirectionalLight(0xffffff, 0.2);
@@ -136,17 +122,14 @@ const init = () => {
             // Add the decal to the model's mesh
             mesh.add(decalMesh);
 
-            console.log(mesh.add(decalMesh));
         })
 
         renderer.render(scene, camera, renderTarget)
-        controls.update()
 
         function animate() {
-            requestAnimationFrame(animate)
+            animationFrameId = requestAnimationFrame(animate)
             // Render the scene and enable control
             renderer.render(scene, camera, renderTarget)
-            controls.update()
             model.rotation.y += 0.01;
         }
 
@@ -161,6 +144,12 @@ const init = () => {
 onMounted(() => {
     init()
 })
+
+onBeforeUnmount(() => {
+    cancelAnimationFrame(animationFrameId);
+    renderer.dispose();
+    containerRef.value.removeChild(renderer.domElement);
+});
 </script>
 
 <style  scoped>

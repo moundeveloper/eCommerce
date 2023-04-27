@@ -1,6 +1,6 @@
 <template>
     <div class="h-full flex flex-col justify-start gap-10 pt-10 customizer-wraper">
-        <ShirtRenderer ref="shirtRendererRef" :color="color" :img="img" />
+        <ShirtRenderer ref="shirtRendererRef" :color="color" :img="img" :tshirt="route.query" />
         <div class="customize-wraper fancy-decoration">
             <h1>Personalizzazione T-shirt</h1>
 
@@ -16,7 +16,7 @@
                 <span>size:</span>
                 <ul>
                     <li v-for="size in defaultSizes" :key="size" :class="{ 'active-size': size === activeSize }"
-                        class="radio-btn  grid place-items-center text-var(--secondary-color)" @click="changeSize(size)">{{
+                        class="radio-btn  grid place-items-center" @click="changeSize(size)">{{
                             size }}</li>
                 </ul>
             </div>
@@ -45,6 +45,9 @@ import ShirtRenderer from '../components/ShirtRenderer.vue';
 import { useCartStore } from '../store/cart';
 import { v4 as uuidv4 } from 'uuid';
 import { ref } from 'vue';
+import { useRoute } from "vue-router"
+
+const route = useRoute()
 
 const defaultColors = [{
     hexValue: "#E52121",
@@ -140,6 +143,7 @@ const changeColor = (newColor) => {
     outline: 1px solid var(--secondary-color);
     cursor: pointer;
     font-weight: 300;
+    color: var(--secondary-color);
 }
 
 .active-size {
@@ -224,6 +228,7 @@ const changeColor = (newColor) => {
         align-items: center;
         padding: 0 4rem;
         margin-bottom: 2rem;
+        height: 100%;
     }
 
     .customize-wraper {

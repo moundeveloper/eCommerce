@@ -3,29 +3,40 @@
         torna sulla tua strada 
         e non toccare niente che senno ti 🔪🩸💀 -->
     <div class="canvas-container">
-        <div id="container"></div>
+        <div ref="containerRef" id="container"></div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watchEffect } from 'vue';
+import { ref, onMounted, watchEffect, onBeforeUnmount } from 'vue';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DecalGeometry } from 'three/addons/geometries/DecalGeometry.js';
-import { MeshSurfaceSampler } from 'three/addons/math/MeshSurfaceSampler.js';
 
 const props = defineProps({
     color: Number,
-    img: String
+    img: String,
+    tshirt: Object
 })
-
 
 const currentColor = ref(props.color)
 const currentImg = ref("/assets/logo.jpg")
+const containerRef = ref(null)
+const currentShirt = ref({})
 
+if (Object.keys(props.tshirt).length === 0) {
+    currentShirt.value = {
+        model: 'Men T-Shirt',
+        price: '21.99',
+        model3dPath: '/assets/shirt_male.gltf',
+        meshName: 'T_shirt_male'
+    }
+} else {
+    currentShirt.value = props.tshirt
+}
 
-let renderer, scene, camera, controls, renderTarget
+let renderer, scene, camera, controls, renderTarget, animationFrameId
 
 const snapshot = () => {
     const snapshot = renderer.domElement.toDataURL('image/png');
@@ -52,7 +63,7 @@ const init = () => {
         transparent: true,
     });
 
-    document.querySelector('#container').appendChild(renderer.domElement);
+    containerRef.value.appendChild(renderer.domElement);
 
     // Initialize scene
     scene = new THREE.Scene();
@@ -102,7 +113,7 @@ const init = () => {
 
     // Load T-shirt 3D model
     const loader = new GLTFLoader()
-    loader.load('/assets/shirt_male.gltf', (gltf) => {
+    loader.load(currentShirt.value.model3dPath, (gltf) => {
         const model = gltf.scene
         model.position.set(0, 0, 0)
         const s = 5
@@ -126,7 +137,7 @@ const init = () => {
             scene.add(model)
 
             // Get mesh from GTLF model
-            const mesh = model.getObjectByName('T_shirt_male');
+            const mesh = model.getObjectByName(currentShirt.value.meshName);
             let canvas = document.createElement('canvas');
             let paddedTexture = null
             const textureLoader = new THREE.TextureLoader();
@@ -152,7 +163,6 @@ const init = () => {
                     side: THREE.FrontSide // Set the side property to FrontSide
                 });
 
-                console.log(texture)
 
                 // Create a decal geometry
                 const decalGeometry = new DecalGeometry(mesh, new THREE.Vector3(0, 0.05, 0.5), new THREE.Euler(-0.4, 0, 0), new THREE.Vector3(2, 2, 2));
@@ -173,7 +183,7 @@ const init = () => {
 
 
         function animate() {
-            requestAnimationFrame(animate)
+            animationFrameId = requestAnimationFrame(animate)
             // Render the scene and enable control
             controls.update()
             renderer.render(scene, camera, renderTarget)
@@ -193,6 +203,12 @@ defineExpose({
 onMounted(() => {
     init()
 })
+
+onBeforeUnmount(() => {
+    cancelAnimationFrame(animationFrameId);
+    renderer.dispose();
+    containerRef.value.removeChild(renderer.domElement);
+});
 </script>
 
 <style  scoped>
