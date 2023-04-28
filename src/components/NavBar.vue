@@ -22,6 +22,7 @@
     <router-link to="/">Home</router-link>
     <router-link to="/customize-shirt">Customize</router-link>
     <router-link to="/catalog">Catalog</router-link>
+    <router-link to="/contacts">Contacts</router-link>
 
 
     <!-- Le icone si usano in questo modo e le cercate da https://oh-vue-icons.js.org/docs 
