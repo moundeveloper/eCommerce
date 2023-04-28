@@ -13,7 +13,7 @@ store.loadCart()
         <header class="py-2 px-7 z-2 flex items-center justify-between">
             <NavBar />
         </header>
-        <main class="grow z-2">
+        <main class="flex flex-col grow z-2">
             <router-view :key="$route.fullPath"></router-view>
         </main>
         <Footer />

@@ -1,6 +1,11 @@
 <template>
-    <div>
-        hey
+    <div class="admin-wrapper flex flex-col grow">
+        <h1 class="self-center">Admin</h1>
+        <div class="products-category flex justify-center gap-30 grow">
+            <div class="product-category">man</div>
+            <div class="product-category">Women</div>
+            <div class="product-category">Kids</div>
+        </div>
     </div>
 </template>
 
@@ -8,4 +13,11 @@
 
 </script>
 
-<style  scoped></style>
+<style  scoped>
+.products-category{
+    background-color: rebeccapurple;
+    justify-content: center;
+    align-items: center;
+}
+
+</style>

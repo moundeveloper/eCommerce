@@ -12,6 +12,7 @@
   color: var(--primary-color);
   font-family: "Poppins", sans-serif;
   font-weight: bold;
+  outline: 3px solid orange;
 }
 
 body {
