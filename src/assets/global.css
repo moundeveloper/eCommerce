@@ -1,8 +1,8 @@
 :root {
-  --primary-color: white;
+  --primary-color: rgb(255, 255, 255);
   --secondary-color: black;
   --tertiary-color: #8136a5;
-  --accent-color: #717171;
+  --accent-color: #b7b7b7;
 }
 
 * {
@@ -36,4 +36,10 @@ ul {
     var(--secondary-color) 1px,
     rgba(0, 0, 0, 0) 1px
   );
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
