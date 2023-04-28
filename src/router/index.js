@@ -3,7 +3,7 @@ import Home from "../views/home.vue";
 import CustomizeShirt from "../views/customize-shirt.vue";
 import Catalog from "../views/catalog.vue";
 import Cart from "../views/cart.vue";
-
+import Contacts from "../views/contacts.vue";
 const routes = [
   {
     path: "/",
@@ -19,6 +19,11 @@ const routes = [
     path: "/catalog",
     name: "catalog",
     component: Catalog,
+  },
+  {
+    path: "/contacts",
+    name: "contacts",
+    component: Contacts,
   },
   {
     path: "/cart",

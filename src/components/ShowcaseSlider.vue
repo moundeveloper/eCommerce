@@ -14,7 +14,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DecalGeometry } from 'three/addons/geometries/DecalGeometry.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-const currentColor = ref(0xE52121)
+const currentColor = ref(0x6A2B87)
 const currentImg = ref("/assets/logo.jpg")
 const containerRef = ref(null)
 
