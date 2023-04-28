@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col mt-10 gap-10">
+    <div class="flex flex-col mt-10 gap-5">
         <h1 class="self-center">Catalogo</h1>
         <div class="boxes">
             <div class="box" v-for="shirt in tShirts" :key="shirt.model">
@@ -61,12 +61,11 @@ p {
 
 .boxes {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 18rem);
+    grid-template-columns: repeat(auto-fill, 19rem);
     justify-content: center;
     grid-auto-flow: row;
     gap: 2.5rem 10rem;
     margin: 4rem 0;
-    outline: 1px solid orange;
 }
 
 .box {

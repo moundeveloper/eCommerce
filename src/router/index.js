@@ -3,6 +3,7 @@ import Home from "../views/home.vue";
 import CustomizeShirt from "../views/customize-shirt.vue";
 import Catalog from "../views/catalog.vue";
 import Cart from "../views/cart.vue";
+import Admin from "../views/admin.vue";
 
 const routes = [
   {
@@ -24,6 +25,12 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: Cart,
+  },
+  ,
+  {
+    path: "/admin",
+    name: "admin",
+    component: Admin,
   },
 ];
 

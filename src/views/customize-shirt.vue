@@ -1,7 +1,7 @@
 <template>
-    <div class="h-full flex flex-col justify-start gap-10 pt-10 customizer-wraper">
+    <div class="h-full flex flex-col justify-start gap-10 pt-10 customizer-wraper ">
         <ShirtRenderer ref="shirtRendererRef" :color="color" :img="img" :tshirt="route.query" />
-        <div class="customize-wraper fancy-decoration">
+        <div class="customize-wraper glassmorphism">
             <h1>Personalizzazione T-shirt</h1>
 
             <div>
@@ -78,7 +78,7 @@ const color = ref(0xE52121)
 const img = ref(null)
 const activeSize = ref(defaultSizes[0]);
 const shirtRendererRef = ref(null);
-const amount = ref(0)
+const amount = ref(1)
 const model = ref("T-Shirt male")
 
 
@@ -151,24 +151,28 @@ const changeColor = (newColor) => {
     background-color: var(--secondary-color);
 }
 
+
 .customize-wraper {
     padding: 2rem;
-    background-color: var(--primary-color);
     display: flex;
     flex-direction: column;
     gap: 2rem;
     background-image: url("/assets/darker_decoration.svg");
-    background-size: cover;
+    background-position: center;
 }
 
 .customize-wraper>*,
 .customize-wraper span {
     color: var(--secondary-color);
     text-transform: capitalize;
+    color: var(--accent-color);
 }
 
 .customize-wraper h1 {
-    font-size: clamp(1.7rem, 100%, 2vw);
+    font-size: clamp(1.7rem, 2vw, 6vw);
+    text-transform: uppercase;
+    font-weight: 900;
+    color: var(--primary-color);
 }
 
 .customize-wraper input[type="number"] {
@@ -234,6 +238,10 @@ const changeColor = (newColor) => {
     .customize-wraper {
         width: 50%;
         border-radius: 1rem;
+        -webkit-box-shadow: 5px 5px 28px -10px #000000;
+        -moz-box-shadow: 5px 5px 28px -10px #000000;
+        -o-box-shadow: 5px 5px 28px -10px #000000;
+        box-shadow: 5px 5px 28px -10px #000000;
     }
 
     .buttons {

@@ -113,7 +113,7 @@ nav a:hover {
   display: none;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 680px) {
   nav {
     position: absolute;
     justify-self: flex-end;
