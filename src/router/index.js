@@ -6,7 +6,8 @@ import Cart from "../views/cart.vue";
 import Contacts from "../views/contacts.vue";
 import Admin from "../views/admin.vue";
 import AdminCategory from "../views/admin-category.vue";
-
+import CartItems from "../views/cart-items.vue";
+import CartHistory from "../views/cart-history.vue";
 
 const routes = [
   {
@@ -33,6 +34,19 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: Cart,
+    redirect: "/cart/items",
+    children: [
+      {
+        path: "items",
+        name: "items",
+        component: CartItems,
+      },
+      {
+        path: "history",
+        name: "history",
+        component: CartHistory,
+      },
+    ],
   },
   ,
   {

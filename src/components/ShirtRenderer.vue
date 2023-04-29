@@ -38,17 +38,57 @@ if (Object.keys(props.tshirt).length === 0) {
 
 let renderer, scene, camera, controls, renderTarget, animationFrameId
 
+
+
 const snapshot = () => {
     const snapshot = renderer.domElement.toDataURL('image/png');
-    // Do something with the snapshot (e.g. display it in an img element)
-    const link = document.createElement('a');
-    link.href = snapshot;
-    link.download = 'Download.png';
-    link.click();
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.onload = function () {
+        const { width, height } = img;
+        const size = Math.min(width, height);
+        canvas.width = size;
+        canvas.height = size;
+        const x = (width - size) / 2;
+        const y = (height - size) / 2;
+        ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
+        canvas.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = 'image.png';
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+        }, 'image/png');
+    };
+    img.src = snapshot;
+
 }
 
 const getImage = () => {
-    return renderer.domElement.toDataURL('image/png');
+    const snapshot = renderer.domElement.toDataURL('image/png')
+    return new Promise((resolve, reject) => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        img.onload = function () {
+            const { width, height } = img;
+            const size = Math.min(width, height);
+            canvas.width = size;
+            canvas.height = size;
+            const x = (width - size) / 2;
+            const y = (height - size) / 2;
+            ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                resolve(url);
+            }, 'image/png');
+        };
+        img.onerror = reject;
+        img.src = snapshot;
+    });
 }
 
 const init = () => {

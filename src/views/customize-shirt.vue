@@ -44,7 +44,7 @@
 import ShirtRenderer from '../components/ShirtRenderer.vue';
 import { useCartStore } from '../store/cart';
 import { v4 as uuidv4 } from 'uuid';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute } from "vue-router"
 import CustomInputNumber from "../components/CustomInputNumber.vue"
 
@@ -72,6 +72,7 @@ const defaultColors = [{
 },
 ]
 
+const amount = ref(null)
 const defaultSizes = ["XS", "S", "M", "L", "XL"]
 const emits = defineEmits(['input-value']);
 const store = useCartStore()
@@ -79,11 +80,13 @@ const color = ref(0xE52121)
 const img = ref(null)
 const activeSize = ref(defaultSizes[0]);
 const shirtRendererRef = ref(null);
-const amount = ref(1)
 const model = ref(route.query.model || "T-Shirt male")
 const modelPrice = ref(route.query.price || 20)
 
-console.log(modelPrice.value)
+
+onMounted(() => {
+    amount.value = 1
+})
 
 const handleInputNumber = (data) => {
     amount.value = data
@@ -98,7 +101,7 @@ const changeSize = (size) => {
 }
 
 
-const addToCart = () => {
+const addToCart = async () => {
     if (amount.value < 1) return
     const newCartItem = {
         id: uuidv4(),
@@ -106,11 +109,17 @@ const addToCart = () => {
         color: color.value,
         size: activeSize.value,
         amount: amount.value,
-        image: shirtRendererRef.value.getImage(),
-        totalPrice: (modelPrice.value * amount.value).toFixed(2),
+        image: await shirtRendererRef.value.getImage(),
+        totalPrice: processPrice(),
         singlePrice: modelPrice.value
     }
+
+    console.log(await shirtRendererRef.value.getImage())
     store.addCartItem(newCartItem)
+}
+
+const processPrice = () => {
+    return (parseInt(modelPrice.value) * parseInt(amount.value)).toFixed(2)
 }
 
 const previewImg = async (event) => {

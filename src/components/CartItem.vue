@@ -31,6 +31,7 @@ const emits = defineEmits(['input-value']);
 const props = defineProps({
     cartItem: Object
 })
+
 const itemQuantity = ref(props.cartItem.amount)
 
 const removeFromCart = () => {
@@ -86,7 +87,6 @@ p {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-
 }
 
 .btns button {
