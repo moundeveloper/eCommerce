@@ -1,7 +1,7 @@
 <template>
     <div class="h-full flex flex-col justify-start gap-10 pt-10 customizer-wraper ">
         <ShirtRenderer ref="shirtRendererRef" :color="color" :img="img" :tshirt="route.query" />
-        <div class="customize-wraper glassmorphism">
+        <div class="customize-wraper glassmorphism custom-shadow ">
             <h1>Personalizzazione T-shirt</h1>
 
             <div>
@@ -22,13 +22,13 @@
             </div>
             <div>
                 <span>quantità:</span>
-                <input v-model="amount" type="number" name="" id="" min="1">
+                <CustomInputNumber :emits="emits" @input-value="handleInputNumber" />
             </div>
             <div>
                 <span>immagine:</span>
                 <label for="img" class="flex gap-1 items-center">
                     <span>upload</span>
-                    <v-icon name="md-fileupload-round" fill="var(--secondary-color)" />
+                    <v-icon name="md-fileupload-round" fill="var(--primary-color)" />
                 </label>
                 <input @change="previewImg" type="file" id="img" name="img">
             </div>
@@ -46,6 +46,7 @@ import { useCartStore } from '../store/cart';
 import { v4 as uuidv4 } from 'uuid';
 import { ref } from 'vue';
 import { useRoute } from "vue-router"
+import CustomInputNumber from "../components/CustomInputNumber.vue"
 
 const route = useRoute()
 
@@ -72,15 +73,21 @@ const defaultColors = [{
 ]
 
 const defaultSizes = ["XS", "S", "M", "L", "XL"]
-
+const emits = defineEmits(['input-value']);
 const store = useCartStore()
 const color = ref(0xE52121)
 const img = ref(null)
 const activeSize = ref(defaultSizes[0]);
 const shirtRendererRef = ref(null);
 const amount = ref(1)
-const model = ref("T-Shirt male")
+const model = ref(route.query.model || "T-Shirt male")
+const modelPrice = ref(route.query.price || 20)
 
+console.log(modelPrice.value)
+
+const handleInputNumber = (data) => {
+    amount.value = data
+}
 
 const snapshotCall = () => {
     shirtRendererRef.value.snapshot();
@@ -99,7 +106,9 @@ const addToCart = () => {
         color: color.value,
         size: activeSize.value,
         amount: amount.value,
-        image: shirtRendererRef.value.getImage()
+        image: shirtRendererRef.value.getImage(),
+        totalPrice: (modelPrice.value * amount.value).toFixed(2),
+        singlePrice: modelPrice.value
     }
     store.addCartItem(newCartItem)
 }
@@ -210,7 +219,7 @@ const changeColor = (newColor) => {
 .customize-wraper button:last-child {
     outline: 1px solid;
     background-color: transparent;
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .buttons {
@@ -238,10 +247,6 @@ const changeColor = (newColor) => {
     .customize-wraper {
         width: 50%;
         border-radius: 1rem;
-        -webkit-box-shadow: 5px 5px 28px -10px #000000;
-        -moz-box-shadow: 5px 5px 28px -10px #000000;
-        -o-box-shadow: 5px 5px 28px -10px #000000;
-        box-shadow: 5px 5px 28px -10px #000000;
     }
 
     .buttons {

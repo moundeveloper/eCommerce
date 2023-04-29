@@ -10,10 +10,10 @@ store.loadCart()
 
 <template>
     <div class="custom-container flex flex-col">
-        <header class="py-2 px-7 z-2 flex items-center justify-between">
+        <header class="py-2 px-7 grid items-center">
             <NavBar />
         </header>
-        <main class="grow z-2">
+        <main class="flex flex-col grow z-2">
             <router-view :key="$route.fullPath"></router-view>
         </main>
         <Footer />
@@ -32,5 +32,15 @@ header {
     padding-top: 1rem;
     padding-bottom: 1rem;
     z-index: 4;
+
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media only screen and (max-width: 900px) {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 </style>

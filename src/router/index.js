@@ -5,6 +5,8 @@ import Catalog from "../views/catalog.vue";
 import Cart from "../views/cart.vue";
 import Contacts from "../views/contacts.vue";
 import Admin from "../views/admin.vue";
+import AdminCategory from "../views/admin-category.vue";
+
 
 const routes = [
   {
@@ -37,6 +39,11 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: Admin,
+  },
+  {
+    path: "/admin-category",
+    name: "admin-category",
+    component: AdminCategory,
   },
 ];
 

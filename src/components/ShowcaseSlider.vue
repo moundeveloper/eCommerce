@@ -63,7 +63,7 @@ const init = () => {
 
     // Load T-shirt 3D model
     const loader = new GLTFLoader()
-    loader.load('/assets/shirt_female.gltf', (gltf) => {
+    loader.load('/assets/shirt_male.gltf', (gltf) => {
         const model = gltf.scene
         model.position.set(0, 0, 0)
         const s = 5
@@ -84,7 +84,7 @@ const init = () => {
         scene.add(model)
 
         // Get mesh from GTLF model
-        const mesh = model.getObjectByName('T_shirt_women');
+        const mesh = model.getObjectByName('T_shirt_male');
         let canvas = document.createElement('canvas');
         let paddedTexture = null
         const textureLoader = new THREE.TextureLoader();
