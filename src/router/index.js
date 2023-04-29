@@ -7,7 +7,6 @@ import Contacts from "../views/contacts.vue";
 import Admin from "../views/admin.vue";
 import AdminCategory from "../views/admin-category.vue";
 
-cdd299d3d33bea2e66cabc9d0e0e83d7ec2f3ca1
 const routes = [
   {
     path: "/",

@@ -1,12 +1,12 @@
 <template>
     <div class="flex flex-col mt-10 gap-5">
         <h1 class="self-center">Catalogo</h1>
-        <div class="boxes">
-            <div class="box" v-for="shirt in tShirts" :key="shirt.model">
+        <div class="cards">
+            <div class="card glassmorphism custom-shadow " v-for="shirt in tShirts" :key="shirt.model">
+                <span class="model">{{ shirt.model }}</span>
                 <div class="img-wraper">
                     <img :src="shirt.imageModel" alt="" />
                 </div>
-                <span class="model">{{ shirt.model }}</span>
                 <div class="flex justify-between"><span>Prezzo : </span><span>{{ shirt.price }} €</span></div>
 
                 <router-link :to="{ name: 'customize-shirt', query: shirt }">more</router-link>
@@ -25,15 +25,15 @@ const tShirts = [
 
 <style scoped>
 .model {
-    color: var(--secondary-color);
     align-self: center;
-    font-weight: 700;
+    font-size: 1.5rem;
 }
 
 .img-wraper {
     max-width: 15rem;
     display: flex;
     justify-content: center;
+    align-self: center;
 }
 
 .img-wraper img {
@@ -42,8 +42,8 @@ const tShirts = [
 
 
 span {
-    color: var(--secondary-color);
-    font-weight: 400;
+    color: var(--primary-color);
+    font-weight: 100;
 }
 
 h1 {
@@ -59,7 +59,7 @@ p {
     color: var(--secondary-color);
 }
 
-.boxes {
+.cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, 19rem);
     justify-content: center;
@@ -68,17 +68,13 @@ p {
     margin: 4rem 0;
 }
 
-.box {
-    background-color: var(--primary-color);
+.card {
     padding: 1rem;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    -webkit-box-shadow: 5px 5px 28px -10px #000000;
-    -moz-box-shadow: 5px 5px 28px -10px #000000;
-    -o-box-shadow: 5px 5px 28px -10px #000000;
-    box-shadow: 5px 5px 28px -10px #000000;
+
 }
 
 a {
@@ -90,6 +86,7 @@ a {
     background-color: var(--tertiary-color);
     border-radius: 0.5rem;
     cursor: pointer;
+    font-weight: 300;
     text-transform: capitalize;
 }
 </style>

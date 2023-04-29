@@ -14,7 +14,8 @@
     </svg>
   </router-link>
   <!-- Link nav-->
-  <nav ref="nav" class="flex gap-4 justify-center justify-self-center" :class="{ 'glassmorphism': isSmallScreen() }">
+
+  <nav class="flex gap-4 justify-center">
     <button class="exit-button" @click="menuhide">
       <v-icon name="md-close" fill="var(--secondary-color)" scale="1.5" />
     </button>
@@ -23,9 +24,10 @@
     <router-link to="/catalog">Catalog</router-link>
     <router-link to="/contacts">Contacts</router-link>
   </nav>
+
   <!-- Icona carrello-->
 
-  <router-link to="/cart" class="cart-link justify-self-end">
+  <router-link to="/cart" class="cart-link">
     <v-icon name="md-shoppingbag-round" class="cart-icon" fill="var(--primary-color)" scale="1.5" />
     <span>carrello</span>
   </router-link>
@@ -37,28 +39,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
-const nav = ref("")
-
 const menushow = () => {
-  nav.value.classList.add("show")
+  const nav = document.querySelector("nav")
+  nav.classList.add("show")
 }
 const menuhide = () => {
-  nav.value.classList.remove("show")
-}
-
-/* Apply glassmorphism in mobile */
-window.addEventListener('resize', () => {
-  if (window.innerWidth < 900) {
-    nav.value.classList.add("glassmorphism")
-    return
-  }
-  nav.value.classList.remove("glassmorphism")
-})
-
-const isSmallScreen = () => {
-  return window.innerWidth < 900;
+  const nav = document.querySelector("nav")
+  nav.classList.remove("show")
 }
 
 </script>
@@ -84,13 +71,8 @@ button {
   align-items: center;
 }
 
-.cart-link {
+nav {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--primary-color);
 }
 
 .cart-link span {
@@ -103,13 +85,19 @@ button {
   display: none;
 }
 
+nav {
+  display: flex;
+}
+
 nav a {
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid;
+  border: transparent;
   padding-bottom: 0.5rem;
   font-weight: 500;
 }
 
 nav a:hover {
+  border-bottom: 1px solid;
   border-color: var(--primary-color);
 }
 
@@ -117,14 +105,15 @@ nav a:hover {
   display: none;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 680px) {
   nav {
-    position: fixed;
+    position: absolute;
     justify-self: flex-end;
     flex-direction: column;
     top: 0;
     right: 0;
     padding: 1rem 1.5rem;
+    background-color: var(--primary-color);
     gap: 2rem;
     height: 100%;
     justify-content: flex-start;
@@ -137,9 +126,13 @@ nav a:hover {
 
   nav a {
     color: var(--secondary-color);
+    border-bottom: 1px solid;
+    border: transparent;
+    padding-bottom: 0.5rem;
   }
 
   nav a:hover {
+    border-bottom: 1px solid;
     border-color: var(--secondary-color);
   }
 
@@ -161,8 +154,9 @@ nav a:hover {
   .cart-link {
     display: block;
     margin-left: auto;
-    margin-right: 0.5rem;
+    margin-right: 8px;
     border: transparent;
+    border: 1px solid var(--primary-color);
   }
 
   .menu-button {

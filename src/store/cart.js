@@ -6,6 +6,7 @@ export const useCartStore = defineStore("cartStore", {
   },
   getters: {
     getCart: (state) => state.cart,
+    getCartCounter: (state) => state.cart.length,
   },
   actions: {
     loadCart() {
@@ -14,6 +15,15 @@ export const useCartStore = defineStore("cartStore", {
     },
     setMerch() {
       /* TO-DO */
+    },
+    setCartItem(editedCartItem) {
+      this.cart.map((cartItem) => {
+        if (cartItem.id === editedCartItem.id) {
+          return editedCartItem;
+        }
+        return cartItem;
+      });
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     },
     addCartItem(cartItem) {
       this.cart.push(cartItem);

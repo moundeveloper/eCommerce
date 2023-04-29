@@ -14,10 +14,8 @@
 </script>
 
 <style  scoped>
-.products-category{
-    background-color: rebeccapurple;
+.products-category {
     justify-content: center;
     align-items: center;
 }
-
 </style>
