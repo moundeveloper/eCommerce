@@ -23,14 +23,4 @@ const store = useCartStore()
     gap: 2.5rem 10rem;
     margin: 4rem 0;
 }
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
 </style>

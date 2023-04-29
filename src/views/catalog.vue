@@ -2,6 +2,8 @@
     <div class="flex flex-col mt-10 gap-5">
         <h1 class="self-center">Catalogo</h1>
         <div class="cards">
+
+            <!-- Card template -->
             <div class="card glassmorphism custom-shadow " v-for="shirt in tShirts" :key="shirt.model">
                 <span class="model">{{ shirt.model }}</span>
                 <div class="img-wraper">
@@ -11,6 +13,7 @@
 
                 <router-link :to="{ name: 'customize-shirt', query: shirt }">more</router-link>
             </div>
+            <!-- End Card template -->
         </div>
     </div>
 </template>
