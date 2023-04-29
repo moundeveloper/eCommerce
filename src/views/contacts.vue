@@ -16,26 +16,23 @@
 </svg>
 </router-link>
      </div>
-<div class="line"></div>
+ <div class="line mr-10"></div>
         <div class="middle">
+          
              <div class="main-head"> 
                 <h1 class="contacts">Contacts</h1>
-                <h1 class="second-text">Drop us a line to get the 
-                    <span>conversation started</span></h1>
+                <h2 class="second-text"><span>  Drop us a line to get the </span>
+                    <span>conversation started</span></h2>
             </div>
 
-                <div class="space">
-
                  <form action="">
-                 <input type="text" value="Name">
-                 <input type="text" value="Surname">
-                 <input type="email" id="" value="email">
-                 <input type="text" id="" value="Number">
-                 <input type="text" id="messages" value="Messages">
+                 <input type="text" value="Name" class="glassmorphism">
+                 <input type="text" value="Surname" class="glassmorphism" >
+                 <input type="email" id="" value="email"  class="glassmorphism">
+                 <input type="text" id="" value="Number"  class="glassmorphism">
+                 <input type="text" id="messages" value="Messages"  class="glassmorphism">
                  <input type="submit" value="Sumbit" id="sumbit">
                  </form>
-
-                 </div>
         </div>
 
 <div class="right"></div>
@@ -49,13 +46,20 @@ input{
   color: rgba(0, 0, 0, 0.527);
 }
 .second-text{
-  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
 }
-span{
-  font-family: sans-serif;
+.second-text span{
+  font-weight: 200;
+  font-size: 2rem;
 }
 .everything{
     display: flex;
+    margin: 2rem 0;
+    align-items: center;
+   
 }
 .logo{
 display: flex;
@@ -69,6 +73,7 @@ margin: 8rem;
     align-items: center;
     flex-direction: column;
     margin: 1rem;
+    gap: 3rem;
 }
 
 /*.space{
@@ -89,7 +94,10 @@ form{
 input{
     height: 3rem;
     width: 23rem;
-    background-color: rgba(153, 126, 167, 0.671);
+    border: transparent;
+    padding: 0.5rem 1rem;
+    color: var(--accent-color);
+    border-radius: 0.5rem;
 }
 
 #messages{
@@ -98,15 +106,17 @@ input{
 
 }
 #sumbit{
-  height: 2rem;
-  width: 6rem;
-  background-color: rgb(118, 34, 118);
-  color: white;
+  padding: 0.5rem 1rem;
+  background-color: var(--tertiary-color);
+  color: var(--accent-color);
+
 }
-.main-head span{
+.main-head{
   display: flex;
   flex-direction: column;
+  
 }
+
 .contacts{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   display: flex;
@@ -119,10 +129,23 @@ input{
   content: "";
   display: flex;
   display: block;
-  height: 100%;
+  height: 26rem;
   width: 3px;
   background-color: rgb(149, 72, 170);
-
+  transform: translateY(5.5rem);
 }
-
+@media (max-width:800px) {
+  .left{
+    display: none;
+  }
+  .right{
+    display: none;
+  }
+  .line{
+    display: none;
+  }
+  .everything{
+    justify-content: center;
+  }
+}
 </style>
