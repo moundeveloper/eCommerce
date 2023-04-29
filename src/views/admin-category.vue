@@ -10,19 +10,25 @@
             <p>Prodotti disponibili: </p>
         </div>
         <div class="products">
-            <div class="product" v-for="shirt in tShirts" :key="shirt.model">
+            <div class="product glassmorphism p-4 rounded-2xl" v-for="shirt in tShirts" :key="shirt.model">
                 <p>{{ shirt.model }}</p>
                 <img src="https://cdn.pixabay.com/photo/2016/12/06/09/31/blank-1886008__340.png" alt="">
-                <button class="w-6/12">Edit</button>
-                <button class="w-6/12">Rush</button>
+                <div class="btns">
+                    <button class="w-6/12" @click="openPopup">Edit</button>
+                    <button class="w-6/12">Rush</button>
+                </div>
             </div>           
 
         </div>
 
     </div>
+    <AdminCategoryPopup/>
 </template>
 
 <script setup>
+    import AdminCategoryPopup from '../components/AdminCategoryPopup.vue';
+
+    defineProps({openPopup:Function})
     const tShirts = [
     { model: "Women T-Shirt", price: 19.99, model3dPath: "/assets/shirt_female.gltf", meshName: "T_shirt_women", imageModel: "/assets/shirt_female_image.png" },
     { model: "Men T-Shirt", price: 21.99, model3dPath: "/assets/shirt_male.gltf", meshName: "T_shirt_male", imageModel: "/assets/shirt_male_image.png" },
@@ -55,6 +61,32 @@
         text-transform: capitalize;
         background-color: var(--tertiary-color);
         border-radius: 0.1rem; 
+    }
+    .btns button {
+    padding: 0.7rem 0;
+    width: 50%;
+    text-align: center;
+    border: transparent;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 300;
+    text-transform: capitalize;
+    background: transparent;
+    }
+
+    .btns button:first-child {
+        border: 1px solid var(--primary-color);
+        border-collapse: separate;
+        border-bottom-left-radius: 0.5rem;
+        border-top-left-radius: 0.5rem;
+    }
+
+    .btns button:last-child {
+        border: 1px solid var(--primary-color);
+        border-collapse: separate;
+        border-bottom-right-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+        background-color: var(--secondary-color);
     }
    
 
