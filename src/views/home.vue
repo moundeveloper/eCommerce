@@ -39,6 +39,7 @@
 
 <div class="description">
   <h1><span>what people say</span><span>about us.</span></h1>
+  <i class="fa-duotone fa-circle"></i>
 <div class="both"><div class="box1"><span>“Non avevo mai ordinato una maglietta personalizzata prima</span><span>d'ora, ma devo dire che l'esperienza sul tuo sito è stata</span>
 <span>fantastica! La maglietta è perfetta! La qualità del tessuto e della </span> <span>stampa è ottima, arrivata in meno di una settimana!</span>
 <span class="end">Maria DiBi</span></div>
@@ -105,11 +106,13 @@ justify-content: center;
 .description{
   display: flex;
 }
+
 h1{
   display: flex;
   flex-direction: column;
   text-align: left;
   text-transform: uppercase;
+  margin: 20px;
   
 }
 .box1{
@@ -129,16 +132,21 @@ h1{
   color: black;
 }
 .box2{
-  background-color: black;
+  
+  padding: 8rem 20rem;
+  border: 4px solid rgb(0, 0, 0);
+  border-radius: 1rem;
+  margin: 6rem 3rem;
 }
-.both{
+/*.both{
   position: relative;
-
-
-}
+}*/
 .end{
   margin: 15px;
 }
+
+
+
 
 
 
