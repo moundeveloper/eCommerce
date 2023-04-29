@@ -60,7 +60,7 @@ p {
 section a {
   padding: 0.4rem 1.5rem;
   border-radius: 0.5rem;
-  background-color: blueviolet;
+  background-color: var(--tertiary-color);
   border: transparent;
   cursor: pointer;
   text-decoration: none;

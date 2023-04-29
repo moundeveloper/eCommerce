@@ -1,31 +1,18 @@
 <template>
-    <div class="footer fancy-decoration">
+    <div class="footer glassmorphism">
         <div class="container">
             <div class="row">
-                <div class="footer-col">
-                    <h4>company</h4>
-                    <ul>
-                        <li><a href="#">gift card</a></li>
-                        <li><a href="#">trova un negozio</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>services</h4>
-                    <ul>
-                        <li><a href="#">invia feedback</a></li>
-                        <li><a href="#">our services</a></li>
 
+                <div class="footer-col flex flex-col" v-for="footerCol in footerLinks">
+                    <h4>{{ footerCol.title }}</h4>
+                    <ul class="flex flex-col gap-5">
+                        <li v-for="footerLink in footerCol.links">
+                            <a :href="footerLink.link">{{ footerLink.text }}</a>
+                        </li>
                     </ul>
                 </div>
-                <div class="footer-col">
-                    <h4>find help</h4>
-                    <ul>
-                        <li><a href="#">hai bisogno di aiuto?</a></li>
-                        <li><a href="#">chi siamo?</a></li>
-                        <li><a href="#">payment options</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
+
+                <div class="footer-col flex flex-col">
                     <h4>follow us</h4>
                     <div class="social-link">
                         <a href="#"><v-icon class="icon-link" name="md-facebook" fill="var(--secondary-color)" /></a>
@@ -40,6 +27,57 @@
 </template>
 
 <script setup>
+
+
+const footerLinks = [
+    {
+        title: "company",
+        links: [
+            {
+                text: "gift card",
+                link: "#"
+            },
+            {
+                text: "trova un negozio",
+                link: "#"
+            },
+        ]
+
+    },
+    {
+        title: "services",
+        links: [
+            {
+                text: "invia feedback",
+                link: "#"
+            },
+            {
+                text: "our services",
+                link: "#"
+            },
+        ]
+
+    },
+    {
+        title: "find help",
+        links: [
+            {
+                text: "hai bisogno di aiuto?",
+                link: "#"
+            },
+            {
+                text: "chi siamo?",
+                link: "#"
+            },
+            {
+                text: "payment options",
+                link: "#"
+            },
+        ]
+
+    },
+
+]
 
 </script>
 
@@ -57,45 +95,27 @@ body {
 .footer {
     padding: 4rem 0;
     border-top: 1px solid var(--accent-color);
-    background-color: var(--primary-color);
 }
 
 .row {
     display: flex;
-    flex-wrap: wrap;
-
-}
-
-.footer-col {
-    width: 25%;
-    padding: 0 15px;
+    justify-content: space-around;
 }
 
 .footer-col h4 {
     font-size: 25px;
-    color: var(--secondary-color);
-    margin-bottom: 35px;
+    color: var(--primary-color);
     font-weight: 500;
-    position: relative;
     text-transform: capitalize;
     font-family: sans-serif;
-}
-
-.footer-col h4::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -10px;
-    background-color: var(--accent-color);
-    height: 1px;
-    width: 130px;
+    border-bottom: 1px solid var(--accent-color);
+    width: 8rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
 }
 
 .footer-col ul {
     list-style: none;
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
 }
 
 .footer-col ul li a {
@@ -110,8 +130,8 @@ body {
 }
 
 .footer-col ul li a:hover {
-    color: var(--secondary-color);
-    padding-left: 16px;
+    color: var(--primary-color);
+    transform: translate(1rem);
 }
 
 .footer-col .social-link a {
@@ -146,9 +166,19 @@ body {
 }
 
 @media (max-width:800px) {
+
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
     .footer-col {
-        width: 100%;
-        margin-bottom: 30px;
+        margin-bottom: 2rem;
+        align-items: center;
+    }
+
+    .footer-col ul {
+        align-items: center;
     }
 }
 </style>
