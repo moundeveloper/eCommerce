@@ -1,6 +1,6 @@
 <template>
     <Transition name="fade">
-        <div class="card glassmorphism custom-shadow " :key="cartItem.model">
+        <div class="card glassmorphism custom-shadow" :key="cartItem.model">
             <span class="model">{{ cartItem.model }}</span>
             <div class="img-wraper">
                 <img :src="cartItem.image" alt="" />
@@ -81,6 +81,8 @@ p {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    background-image: url("/assets/darker_decoration.svg");
+    background-position: center;
 }
 
 .btns button {

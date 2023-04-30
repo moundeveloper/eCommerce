@@ -45,8 +45,8 @@ ul {
 }
 
 .custom-shadow {
-  -webkit-box-shado: 5px 5px 30px -25px #000000;
-  -moz-box-shado: 5px 5px 30px -25px #000000;
-  -o-box-shado: 5px 5px 30px -25px #000000;
-  box-shadow: 5px 5px 30px -25px #000000;
+  -webkit-box-shado: 5px 5px 30px -20px #000000;
+  -moz-box-shado: 5px 5px 30px -20px #000000;
+  -o-box-shado: 5px 5px 30px -20px #000000;
+  box-shadow: 5px 5px 30px -20px #000000;
 }

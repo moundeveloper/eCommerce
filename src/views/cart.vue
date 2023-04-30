@@ -1,6 +1,6 @@
 <template>
     <div class="h-full flex flex-col cart-wraper">
-        <h1 class="self-center mb-5">Cart</h1>
+        <h1 class="self-center mb-5">Carrello</h1>
         <div class="self-center mb-5 flex gap-10">
             <router-link to="items">
                 <v-icon name="md-shoppingbag-round" fill="var(--primary-color)" scale="1.5" />

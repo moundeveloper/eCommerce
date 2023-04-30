@@ -81,5 +81,122 @@ export const useCartStore = defineStore("cartStore", {
         JSON.stringify(this.historyCartPayments)
       );
     },
+    resetOrderDate() {
+      this.historyCartPayments.sort((obj1, obj2) => {
+        const [day, month, year, hours, minutes, seconds] =
+          obj1.date.split(/[/ :]/);
+        const [day2, month2, year2, hours2, minutes2, seconds2] =
+          obj2.date.split(/[/ :]/);
+
+        // Convert the date strings to Date objects
+        const dateObj1 = new Date(
+          year,
+          month - 1,
+          day,
+          hours,
+          minutes,
+          seconds
+        );
+
+        const dateObj2 = new Date(
+          year2,
+          month2 - 1,
+          day2,
+          hours2,
+          minutes2,
+          seconds2
+        );
+
+        // Compare the Date objects and return the comparison result
+        return dateObj2 - dateObj1;
+      });
+    },
+    orderByDateHistory(mode) {
+      if (mode === "desc") {
+        this.historyCartPayments.sort((obj1, obj2) => {
+          const [day, month, year, hours, minutes, seconds] =
+            obj1.date.split(/[/ :]/);
+          const [day2, month2, year2, hours2, minutes2, seconds2] =
+            obj2.date.split(/[/ :]/);
+
+          // Convert the date strings to Date objects
+          const dateObj1 = new Date(
+            year,
+            month - 1,
+            day,
+            hours,
+            minutes,
+            seconds
+          );
+
+          const dateObj2 = new Date(
+            year2,
+            month2 - 1,
+            day2,
+            hours2,
+            minutes2,
+            seconds2
+          );
+
+          // Compare the Date objects and return the comparison result
+          return dateObj2 - dateObj1;
+        });
+
+        return;
+      }
+      this.historyCartPayments.sort((obj1, obj2) => {
+        const [day, month, year, hours, minutes, seconds] =
+          obj1.date.split(/[/ :]/);
+        const [day2, month2, year2, hours2, minutes2, seconds2] =
+          obj2.date.split(/[/ :]/);
+
+        // Convert the date strings to Date objects
+        const dateObj1 = new Date(
+          year,
+          month - 1,
+          day,
+          hours,
+          minutes,
+          seconds
+        );
+
+        const dateObj2 = new Date(
+          year2,
+          month2 - 1,
+          day2,
+          hours2,
+          minutes2,
+          seconds2
+        );
+        // Compare the Date objects and return the comparison result
+        return dateObj1 - dateObj2;
+      });
+    },
+    orderByCostHistory(mode) {
+      if (mode === "desc") {
+        this.historyCartPayments.sort((a, b) => {
+          // Compare the totalPrice values
+          return b.totalPrice - a.totalPrice;
+        });
+        return;
+      }
+      this.historyCartPayments.sort((a, b) => {
+        // Compare the totalPrice values
+        return a.totalPrice - b.totalPrice;
+      });
+    },
+    orderByAmountHistory(mode) {
+      if (mode === "desc") {
+        this.historyCartPayments.sort((a, b) => {
+          // Compare the totalPrice values
+          return b.cartItemLength - a.cartItemLength;
+        });
+        return;
+      }
+      this.historyCartPayments.sort((a, b) => {
+        // Compare the totalPrice values
+        return a.cartItemLength - b.cartItemLength;
+      });
+    },
   },
 });

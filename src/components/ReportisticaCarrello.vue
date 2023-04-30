@@ -1,5 +1,5 @@
 <template>
-    <div class="riepilogo-wraper glassmorphism">
+    <div class="riepilogo-wraper glassmorphism custom-shadow">
         <h2 class="mb-10">riepilogo carrello</h2>
         <div class="flex justify-between">
             <span>numero di prodotti:</span>

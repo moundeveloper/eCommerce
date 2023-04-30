@@ -27,7 +27,7 @@
 
   <router-link to="/cart" class="cart-link justify-self-end">
     <v-icon name="md-shoppingbag-round" class="cart-icon" fill="var(--primary-color)" scale="1.5" />
-    <div>{{ store.getCartCounter }}</div>
+    <div class="cart-counter">{{ store.getCartCounter }}</div>
   </router-link>
 
   <!-- Icona menu -->
@@ -87,12 +87,12 @@ button {
 }
 
 .cart-link {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1rem;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  border: 1px solid var(--primary-color);
 }
 
 .cart-link span {
@@ -117,6 +117,12 @@ nav a:hover {
 
 .menu-button {
   display: none;
+}
+
+.cart-counter {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 @media only screen and (max-width: 900px) {
