@@ -27,7 +27,7 @@
 
   <router-link to="/cart" class="cart-link justify-self-end">
     <v-icon name="md-shoppingbag-round" class="cart-icon" fill="var(--primary-color)" scale="1.5" />
-    <span>carrello</span>
+    <div>{{ store.getCartCounter }}</div>
   </router-link>
 
   <!-- Icona menu -->
@@ -38,7 +38,9 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useCartStore } from '../store/cart';
 
+const store = useCartStore()
 const nav = ref("")
 
 const menushow = () => {

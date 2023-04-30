@@ -81,10 +81,14 @@ const getImage = () => {
             const x = (width - size) / 2;
             const y = (height - size) / 2;
             ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
-            canvas.toBlob(blob => {
+            const dataURL = canvas.toDataURL("image/png");
+
+            resolve(dataURL)
+            /* canvas.toBlob(blob => {
+                console.log(blob)
                 const url = URL.createObjectURL(blob);
                 resolve(url);
-            }, 'image/png');
+            }, 'image/png'); */
         };
         img.onerror = reject;
         img.src = snapshot;

@@ -1,7 +1,13 @@
 <template>
-    <div class="cards">
+    <div class="cards" :class="{ 'cards-grid-template': store.getCart.length }">
         <div v-for="item in store.getCart" :key="item.id">
             <CartItem :cartItem="item" />
+        </div>
+        <div v-if="!store.getCart.length"
+            class="justify-self-center self-start flex flex-col gap-5 items-center glassmorphism p-10 rounded-lg">
+            <img src="https://em-content.zobj.net/source/microsoft-teams/337/disappointed-face_1f61e.png" class="w-[5rem]"
+                alt="">
+            Nessun prodotto nel carrello
         </div>
     </div>
 </template>
@@ -18,6 +24,9 @@ const store = useCartStore()
 .cards {
     display: grid;
     width: 100%;
+}
+
+.cards-grid-template {
     grid-template-columns: repeat(auto-fill, 19rem);
     justify-content: center;
     grid-auto-flow: row;

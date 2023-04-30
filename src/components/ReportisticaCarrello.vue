@@ -23,8 +23,10 @@ import { useCartStore } from '../store/cart';
 const store = useCartStore()
 
 const payCart = () => {
-    store.addCartHistory(store.getCart, store.getCartTotal, store.getCartCounter)
-    store.clearCart()
+    if (store.getCartCounter) {
+        store.addCartHistory(store.getCart, store.getCartTotal, store.getCartCounter)
+        store.clearCart()
+    }
 }
 </script>
 

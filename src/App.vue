@@ -6,6 +6,7 @@ import { useCartStore } from './store/cart';
 const store = useCartStore()
 store.loadCart()
 
+
 </script>
 
 <template>
@@ -14,7 +15,8 @@ store.loadCart()
             <NavBar />
         </header>
         <main class="flex flex-col grow z-2">
-            <router-view :key="$route.fullPath"></router-view>
+            <router-view :key="$route.fullPath">
+            </router-view>
         </main>
         <Footer />
     </div>
@@ -42,5 +44,22 @@ header {
         justify-content: space-between;
         align-items: center;
     }
+}
+</style>
+
+
+<style >
+.slide-fade-enter-active {
+    transition: all 0.2s ease-out;
+}
+
+.slide-fade-leave-active {
+    transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    transform: translateX(20px);
+    opacity: 0;
 }
 </style>

@@ -21,11 +21,13 @@ export const useCartStore = defineStore("cartStore", {
     /* cart getters */
     getCart: (state) => state.cart,
     getCartCounter: (state) => state.cart.length,
-    getCartTotal: (state) =>
-      state.cart.reduce((total, product) => {
-        return total + parseInt(product.totalPrice);
-      }, 0),
-
+    getCartTotal: (state) => {
+      return state.cart
+        .reduce((total, product) => {
+          return parseFloat(total) + parseFloat(product.totalPrice);
+        }, 0)
+        .toFixed(2);
+    },
     /* History cart payments getters */
     getCartHistory: (state) => state.historyCartPayments,
   },

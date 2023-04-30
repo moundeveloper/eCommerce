@@ -1,6 +1,5 @@
 <template>
     <Transition name="fade">
-
         <div class="card glassmorphism custom-shadow " :key="cartItem.model">
             <span class="model">{{ cartItem.model }}</span>
             <div class="img-wraper">
@@ -57,15 +56,10 @@ const handleInputNumber = (data) => {
     font-size: 1.5rem;
 }
 
-.img-wraper {
-    max-width: 15rem;
-    display: flex;
-    justify-content: center;
-    align-self: center;
-}
+
 
 .img-wraper img {
-    width: 30rem;
+    width: 100%;
 }
 
 
@@ -99,18 +93,17 @@ p {
     font-weight: 300;
     text-transform: capitalize;
     background: transparent;
+
 }
 
 .btns button:first-child {
     border: 1px solid var(--primary-color);
-    border-collapse: separate;
     border-bottom-left-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
 }
 
 .btns button:last-child {
     border: 1px solid var(--primary-color);
-    border-collapse: separate;
     border-bottom-right-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     background-color: var(--secondary-color);

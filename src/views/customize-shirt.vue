@@ -119,7 +119,7 @@ const addToCart = async () => {
 }
 
 const processPrice = () => {
-    return (parseInt(modelPrice.value) * parseInt(amount.value)).toFixed(2)
+    return (parseFloat(modelPrice.value) * parseFloat(amount.value)).toFixed(2)
 }
 
 const previewImg = async (event) => {
