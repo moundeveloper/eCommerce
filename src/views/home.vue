@@ -22,7 +22,7 @@
     </section>
 
     <section class="h-full flex">
-      <h1>hey</h1>
+      
     </section>
   </div>
 
@@ -38,7 +38,7 @@
 
 
 <div class="description">
-  <h1><span>what people say</span><span>about us.</span></h1>
+  <h1 class="thoughts"><span>what people say</span><span>about us.</span></h1>
   <i class="fa-duotone fa-circle"></i>
 <div class="both"><div class="box1"><span>“Non avevo mai ordinato una maglietta personalizzata prima</span><span>d'ora, ma devo dire che l'esperienza sul tuo sito è stata</span>
 <span>fantastica! La maglietta è perfetta! La qualità del tessuto e della </span> <span>stampa è ottima, arrivata in meno di una settimana!</span>
@@ -107,7 +107,7 @@ justify-content: center;
   display: flex;
 }
 
-h1{
+.thoughts{
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -132,22 +132,15 @@ h1{
   color: black;
 }
 .box2{
-  
   padding: 8rem 20rem;
   border: 4px solid rgb(0, 0, 0);
   border-radius: 1rem;
   margin: 6rem 3rem;
 }
-/*.both{
-  position: relative;
-}*/
+
 .end{
   margin: 15px;
 }
-
-
-
-
 
 
 
