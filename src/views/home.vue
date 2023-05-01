@@ -48,7 +48,7 @@
 </div>
 
 <div class="scondo">
-  <v-icon name="MdSend" class="cart-icon" fill="black"/>
+ <div class="circle-icon"><v-icon name="md-send" class="send-icon" fill="black" scale="1.5"/></div> 
   <span class="promozione">Promozione</span>
   <h1 class="scondo-text">15% di sconto sul tuo primo ordine.</h1>
 <p class="paragraph">Dont waste your time but hurry now to get stylish with our clothes brand.<br>Our products are made of high italian quality in diffrent color,sizes,models.<br> So what are you waiting for ? Hurry up and you will get a 15% discount for the first product you buy</p>
@@ -62,6 +62,21 @@ import ShowcaseSlider from '../components/ShowcaseSlider.vue';
 </script>
 
 <style scoped>
+
+.circle-icon{
+  background-color: rgba(255, 255, 255, 0.61);
+  border-radius: 50%;
+  padding: 1.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  
+}
+
 .container {  display: grid;
   grid-template-columns: 1.1fr 0.8fr 1.1fr;
   grid-template-rows: 1fr 1fr;
@@ -157,6 +172,7 @@ justify-content: center;
   background-color: rgba(218, 191, 240, 0.563);
   margin: 2.8rem;
   border-radius: 120px 20px 20px 20px;
+  position: relative;
 }
 .btn-show2{
   display: flex;
@@ -222,7 +238,8 @@ section a {
   align-items: center;
 }
 
-.slider {}
+.slider {
+}
 
 @media screen and (max-width: 900px) {
   .h-full {
