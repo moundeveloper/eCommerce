@@ -3,12 +3,12 @@
     <div class="flex flex-col">
         <div class="self-center flex flex-col items-center">
             <h1>Admin</h1>
-            <button class="head-buttons">+</button>
+            <button class="plus-button p-1 ">+</button>
         </div>
 
         <div class="products-bar flex flex-row">
-            <button class="head-buttons">Fliter</button>
-            <p>Prodotti disponibili: </p>
+            <button class="filter-button p-1 ">filter</button>
+            <p class="p-1">Prodotti disponibili: </p>
         </div>
         <div class="products">
             <div class="product glassmorphism p-4 rounded-2xl" v-for="shirt in tShirts" :key="shirt.model">
@@ -36,7 +36,6 @@ const tShirts = [
 ];
 
 function openPopup() {
-    console.log("Funziona");
     showPopup.value = true;
 }
 
@@ -90,16 +89,36 @@ button {
 
 .btns button:first-child {
     border: 1px solid var(--primary-color);
-    border-collapse: separate;
     border-bottom-left-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
 }
 
 .btns button:last-child {
     border: 1px solid var(--primary-color);
-    border-collapse: separate;
     border-bottom-right-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     background-color: var(--secondary-color);
 }
+.plus-button{
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: transparent;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+.filter-button {
+    display: grid;
+    place-items: center;
+    border-radius: 0.5rem;
+    border: transparent;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-transform: capitalize;
+
+}
+
 </style>
