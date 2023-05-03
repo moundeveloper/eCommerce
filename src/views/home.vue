@@ -87,14 +87,15 @@ import ShowcaseSlider from '../components/ShowcaseSlider.vue';
     "big-one two three"
     "big-one four five";
     gap: 1.4rem;
-    margin: 3.5rem;
+   justify-content: center;
+   align-self: center;
+    
 }
 
 .big-one { grid-area: big-one;
 background-color: rgba(218, 191, 240, 0.563);
 border-radius: 1rem;
 }
-
 
 .three { grid-area: three; 
 background-color: rgba(218, 191, 240, 0.563);
@@ -126,6 +127,7 @@ button{
   display: flex;
 align-items: center;
 justify-content: center;
+margin: 2rem;
 }
 .description{
   display: flex;
