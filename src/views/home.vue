@@ -77,7 +77,10 @@ import ShowcaseSlider from '../components/ShowcaseSlider.vue';
   
 }
 
-.container {  display: grid;
+.container {  
+  
+  height: 34rem;
+  display: grid;
   grid-template-columns: 1.1fr 0.8fr 1.1fr;
   grid-template-rows: 1fr 1fr;
   grid-auto-columns: 1fr;
@@ -89,7 +92,8 @@ import ShowcaseSlider from '../components/ShowcaseSlider.vue';
     gap: 1.4rem;
    justify-content: center;
    align-self: center;
-    
+   width: 90%;
+  
 }
 
 .big-one { grid-area: big-one;
@@ -99,7 +103,7 @@ border-radius: 1rem;
 
 .three { grid-area: three; 
 background-color: rgba(218, 191, 240, 0.563);
-padding: 7rem 5rem;
+
 border-radius: 1rem;
 }
 
