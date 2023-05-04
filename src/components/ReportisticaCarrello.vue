@@ -14,14 +14,14 @@
             <span class="max-w-[20ch]">costi di spedizione e gestione previsti</span>
 
             <span v-if="store.getCartTotal > 50">gratis</span>
-            <span v-else>5.99€</span>
+            <span v-else>{{ costoSpedizione }} €</span>
         </div>
 
-        <div class="flex justify-between">
+        <div class="flex justify-between total-cost py-5">
             <span class="max-w-[20ch]">Costo totale</span>
 
-            <span v-if="store.getCartTotal > 50">gratis</span>
-            <span v-else>5.99€</span>
+            <span>{{ sumTotal(store.getCartTotal) }} €</span>
+
         </div>
         <button @click="payCart">vai al pagamento</button>
     </div>
@@ -31,9 +31,14 @@
 import { useCartStore } from '../store/cart';
 const store = useCartStore()
 
+const costoSpedizione = 5.99
+const sumTotal = (cartTotal) => {
+    if (store.getCartTotal > 50) return cartTotal
+    return (parseFloat(cartTotal) + costoSpedizione).toFixed(2)
+}
 const payCart = () => {
     if (store.getCartCounter) {
-        store.addCartHistory(store.getCart, store.getCartTotal, store.getCartCounter)
+        store.addCartHistory(store.getCart, sumTotal(store.getCartTotal), store.getCartCounter)
         store.clearCart()
     }
 }
@@ -48,6 +53,10 @@ const payCart = () => {
     gap: 1.5rem;
     border-radius: 0.5rem;
     min-width: 30rem;
+}
+
+.total-cost {
+    border-top: 1px solid var(--accent-color);
 }
 
 h2 {

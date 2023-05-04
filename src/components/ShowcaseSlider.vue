@@ -2,9 +2,7 @@
     <!-- Se hai aperto questo file per sbaglio 
         torna sulla tua strada 
         e non toccare niente che senno ti 🔪🩸💀 -->
-    <div class="canvas-container">
-        <div ref="containerRef" id="container"></div>
-    </div>
+    <div ref="containerRef" id="container"></div>
 </template>
 
 <script setup>
@@ -21,13 +19,16 @@ const containerRef = ref(null)
 let renderer, scene, camera, controls, renderTarget, animationFrameId
 
 const init = () => {
+    const width = containerRef.value.clientWidth;
+    const height = containerRef.value.clientHeight;
+
     // Initialize renderer
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-    const aspectRatio = 1.3
-    renderer.setSize(window.innerWidth / aspectRatio, window.innerHeight / aspectRatio);
+    let aspectRatio = 1.8
+    renderer.setSize(width, height);
     renderer.setClearColor(0x00000000, 0);
     renderer.alpha = true;
-    renderTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, {
+    renderTarget = new THREE.WebGLRenderTarget(width, height, {
         format: THREE.RGBAFormat,
         transparent: true,
     });
@@ -38,15 +39,21 @@ const init = () => {
     scene = new THREE.Scene();
 
     // Initialize camera
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(75, height / width, 0.1, 1000);
     camera.position.z = 3.9;
+    camera.fov = 70;
+    camera.updateProjectionMatrix();
 
     window.addEventListener('resize', () => {
-        if (window.innerWidth < 900) {
-            camera.position.z = 4.8;
-        } else {
-            camera.position.z = 3.9;
-        }
+        const width = containerRef.value.clientWidth;
+        const height = containerRef.value.clientHeight;
+        console.log(width)
+        console.log(height)
+
+
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
     })
 
     // Add lights
@@ -172,8 +179,15 @@ onBeforeUnmount(() => {
 }
 
 #container {
-    width: fit-content;
     position: relative;
     overflow: hidden;
+    width: 28rem;
+    aspect-ratio: 2.9/3;
+}
+
+@media screen and (max-width: 500px) {
+    #container {
+        width: 100%;
+    }
 }
 </style>

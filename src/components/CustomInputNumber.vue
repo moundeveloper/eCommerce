@@ -19,7 +19,7 @@
 <script setup>
 import { ref, onMounted, watchEffect } from 'vue';
 
-const min = ref(0);
+const min = ref(1);
 const max = ref(50);
 const step = ref(1);
 const inputValueRef = ref(1);
@@ -44,6 +44,8 @@ watchEffect(() => {
     if (parseInt(inputValueRef.value) > max.value) {
         inputValueRef.value = max.value
     }
+
+    emits('input-value', inputValueRef.value);
 
 })
 

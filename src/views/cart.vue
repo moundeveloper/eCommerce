@@ -25,7 +25,7 @@ store.loadCartHistory()
 
 <style scoped>
 .cart-wraper {
-    margin: 0 10rem;
+    margin: 0 5rem;
 }
 
 @media only screen and (max-width: 1100px) {

@@ -1,66 +1,71 @@
 <template>
-  <div class="h-full flex flex-col my-12">
-    <section class="h-full hero-section">
+  <div class="h-full flex flex-col my-12 gap-10 px-5">
+    <section class="hero-section">
       <h1 ref="titleRef" class="hero-title">
-        We are looking <br />
-        to make you <br />
+        We are looking
+        to make you
         Awesome.
       </h1>
-      <p class="hero-title2">
-        Eleva il tuo stile con la nostra collezione di magliette <br />
-        personalizzate, create su misura per esprimere la tua unicità e il tuo
-        <br />
-        spirito creativo.
-      </p>
-      <router-link class="justify-self-start hero-title3" to="/customize-shirt"
-        >Esplora</router-link
-      >
+      <div class="hero-content flex flex-col gap-5">
+        <p>
+          Eleva il tuo stile con la nostra collezione di magliette <br />
+          personalizzate, create su misura per esprimere la tua unicità e il tuo
+          <br />
+          spirito creativo.
+        </p>
+        <router-link to="/customize-shirt">Esplora</router-link>
+      </div>
+
       <ShowcaseSlider class="showcaseslider" />
       <div class="slider"></div>
     </section>
 
-    <section class="h-full flex"></section>
-  </div>
-
-  <div class="container">
-    <div class="big-one">1</div>
-    <div class="three">3</div>
-    <div class="two">2</div>
-    <div class="four">4</div>
-    <div class="five">5</div>
-  </div>
-  <div class="btn-show"><button>Show more</button></div>
-
-  <div class="description">
-    <h1 class="thoughts"><span>what people say</span><span>about us.</span></h1>
-    <div class="both">
-      <div class="box1">
-        <span>“Non avevo mai ordinato una maglietta personalizzata prima</span
-        ><span>d'ora, ma devo dire che l'esperienza sul tuo sito è stata</span>
-        <span
-          >fantastica! La maglietta è perfetta! La qualità del tessuto e della
-        </span>
-        <span>stampa è ottima, arrivata in meno di una settimana!</span>
-        <span class="end">Maria DiBi</span>
+    <section class="flex flex-col gap-5">
+      <div class="products-showcase">
+        <div class="big-one">1</div>
+        <div class="three">3</div>
+        <div class="two">2</div>
+        <div class="four">4</div>
+        <div class="five">5</div>
       </div>
-      <div class="box2"></div>
-    </div>
-  </div>
+      <router-link to="/catalog" class="self-center cursor-pointer">Show more</router-link>
+    </section>
 
-  <div class="scondo">
-    <div class="circle-icon">
-      <v-icon name="md-send" class="send-icon" fill="black" scale="1.5" />
-    </div>
-    <span class="promozione">Promozione</span>
-    <h1 class="scondo-text">15% di sconto sul tuo primo ordine.</h1>
-    <p class="paragraph">
-      Dont waste your time but hurry now to get stylish with our clothes
-      brand.<br />Our products are made of high italian quality in diffrent
-      color,sizes,models.<br />
-      So what are you waiting for ? Hurry up and you will get a 15% discount for
-      the first product you buy
-    </p>
-    <div class="btn-show2"><button>Iscriviti</button></div>
+    <section class="testimonial flex text-[2rem] justify-center gap-30">
+      <h2 class="capitalize">
+        <span class="font-light">what people say</span>
+        <br>
+        <span class="font-light">about us.</span>
+      </h2>
+      <div class="testimonial-card glassmorphism custom-shadow">
+        <p>“Non avevo mai ordinato una maglietta personalizzata prima</p>
+        <p>d'ora, ma devo dire che
+          l'esperienza
+          sul tuo sito è stata</p>
+        <p>fantastica! La maglietta è perfetta! La qualità del tessuto e della
+        </p>
+        <p>stampa è ottima, arrivata in meno di una settimana!</p>
+        <p class="end">Maria DiBi</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="sconto glassmorphism custom-shadow">
+        <div class="circle-icon">
+          <v-icon name="md-send" class="send-icon" fill="black" scale="1.5" />
+        </div>
+        <span class="promozione">Promozione</span>
+        <h2 class="sconto-text">15% di sconto sul tuo primo ordine.</h2>
+        <p class="paragraph">
+          Dont waste your time but hurry now to get stylish with our clothes
+          brand.<br />Our products are made of high italian quality in diffrent
+          color,sizes,models.<br />
+          So what are you waiting for ? Hurry up and you will get a 15% discount for
+          the first product you buy
+        </p>
+        <button class="cursor-pointer">Iscriviti</button>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -69,35 +74,36 @@ import ShowcaseSlider from "../components/ShowcaseSlider.vue";
 </script>
 
 <style scoped>
-.h-full {
-}
 .hero-section {
   display: grid;
-  grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr;
+  grid-template-columns: 0.5fr 1fr 0.5fr 0.5fr;
   grid-template-rows: 0.5fr 0.5fr 0.3fr;
   justify-content: center;
   align-items: center;
+  gap: 1.5rem;
 }
+
 .hero-title {
   grid-row: 1/2;
   grid-column: 2/3;
 }
-.hero-title2 {
+
+.hero-content {
   grid-row: 2/3;
   grid-column: 2/3;
+  align-items: flex-start;
 }
-.hero-title3 {
-  grid-row: 3/4;
-  grid-column: 2/3;
-}
+
+
 .showcaseslider {
   grid-row: 1/4;
   grid-column: 3/4;
 }
+
 .circle-icon {
-  background-color: rgba(255, 255, 255, 0.61);
+  background-color: var(--primary-color);
   border-radius: 50%;
-  padding: 1.1rem;
+  padding: 0.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,18 +113,18 @@ import ShowcaseSlider from "../components/ShowcaseSlider.vue";
   transform: translate(50%, -50%);
 }
 
-.container {
+.circle-icon svg {
+  transform: translate(0.25rem, 0);
+}
+
+.products-showcase {
   display: grid;
   grid-template-columns: 1.1fr 0.8fr 1.1fr;
   grid-template-rows: 1fr 1fr;
-  grid-auto-columns: 1fr;
-  gap: 0px 1px;
-  grid-auto-flow: row;
   grid-template-areas:
     "big-one two three"
     "big-one four five";
   gap: 1.4rem;
-  margin: 3.5rem;
 }
 
 .big-one {
@@ -165,59 +171,28 @@ button {
   align-items: center;
   justify-content: center;
 }
-.description {
-  display: flex;
-}
 
-.thoughts {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  text-transform: uppercase;
-  margin: 20px;
-}
-.box1 {
-  display: flex;
-  flex-direction: column;
-  text-align: end;
-  background-color: rgb(255, 255, 255);
-  margin: 3rem;
-  padding: 4rem 1rem;
-  border-radius: 1rem;
-  text-transform: uppercase;
-  position: absolute;
-  transform: translate(-2rem, -2rem);
-}
-.box1 span {
-  display: flex;
-  color: black;
-}
-.box2 {
-  padding: 8rem 20rem;
-  border: 4px solid rgb(0, 0, 0);
-  border-radius: 1rem;
-  margin: 6rem 3rem;
-}
+
+
+
+
 .end {
   margin: 15px;
 }
 
-.scondo {
+.sconto {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(218, 191, 240, 0.563);
-  margin: 2.8rem;
+  margin: 0 2.8rem;
   border-radius: 120px 20px 20px 20px;
   position: relative;
+  padding: 1.5rem;
+  gap: 2rem;
 }
-.btn-show2 {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 3rem;
-}
-.scondo h1 {
+
+
+.sconto h1 {
   font-size: 2.5rem;
   font-weight: 1rem;
   font-family: sans-serif;
@@ -226,15 +201,26 @@ button {
 .promozione {
   color: rgba(255, 255, 255, 0.555);
 }
-.scondo-text {
-  margin: 20px;
+
+.testimonial-card {
+  display: grid;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  aspect-ratio: 16/9;
+  height: 17.5rem;
+  position: relative;
 }
 
-.paragraph {
-  display: flex;
-  flex-direction: column;
-  max-width: 100ch;
-  letter-spacing: 2px;
+
+
+.testimonial-card p {
+  font-size: 1rem;
+}
+
+.testimonial-card p:last-child {
+  font-weight: 600;
+  align-self: flex-end;
 }
 
 h1 {
@@ -245,7 +231,6 @@ h1 {
 p {
   font-weight: 100;
   font-size: 1.2rem;
-  max-width: 30ch;
   font-family: "Poppins", sans-serif;
 }
 
@@ -258,37 +243,58 @@ section a {
   text-decoration: none;
   font-weight: 400;
 }
-.slider {
-}
+
 
 @media screen and (max-width: 900px) {
   .h-full {
     flex-direction: column;
     gap: 10rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
     gap: 5rem;
+    text-align: center;
   }
 
   .hero-section {
     grid-template-columns: 1fr;
-    grid-template-rows: 0.5fr 1fr 0.5fr 0.3fr;
+    grid-template-rows: 0.5fr 1fr 0.5fr 0.1fr;
   }
+
   .showcaseslider {
     grid-row: 2/3;
     grid-column: 1/2;
+    place-self: center;
   }
+
   .hero-title {
     grid-row: 1/2;
     grid-column: 1/2;
   }
-  .hero-title2 {
+
+  .hero-content {
     grid-row: 3/4;
     grid-column: 1/2;
+    align-items: center;
   }
-  .hero-title3 {
-    grid-row: 4/5;
-    grid-column: 1/2;
+
+
+  .products-showcase {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "big-one big-one"
+      "two three"
+      "four four"
+      "five five"
+    ;
+  }
+
+  .testimonial {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .testimonial-card {
+    width: 80%;
   }
 }
 </style>
