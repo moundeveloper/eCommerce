@@ -25,13 +25,15 @@
 import { useCartStore } from '../store/cart';
 import CustomInputNumber from "./CustomInputNumber.vue"
 import { ref } from "vue"
+
+
 const store = useCartStore()
-const emits = defineEmits(['input-value']);
 const props = defineProps({
     cartItem: Object
 })
-
+const emits = defineEmits(['input-value']);
 const itemQuantity = ref(props.cartItem.amount)
+
 
 const removeFromCart = () => {
     store.removeFromCart(props.cartItem.id)

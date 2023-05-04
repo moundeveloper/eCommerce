@@ -1,22 +1,22 @@
 <template>
-    <AdminCategoryPopup v-if="showPopup" :closePopup="closePopup" />
-    <div class="flex flex-col">
-        <div class="self-center flex flex-col items-center">
+    <AdminCategoryPopup v-if="showPopup" :closePopup="closePopup" :popUpId="popUpId" :popUpData="popUpData" />
+    <div class="flex flex-col px-20">
+        <div class="self-center flex flex-col items-center gap-5">
             <h1>Admin</h1>
-            <button class="plus-button p-1 ">+</button>
+            <button class="plus-button p-1" @click="openPopup(null, $event)" id="add-product">+</button>
         </div>
 
-        <div class="products-bar flex flex-row">
+        <div class="products-bar flex flex-row px-20">
             <button class="filter-button p-1 ">filter</button>
             <p class="p-1">Prodotti disponibili: </p>
         </div>
         <div class="products">
-            <div class="product glassmorphism p-4 rounded-2xl" v-for="shirt in tShirts" :key="shirt.model">
-                <p>{{ shirt.model }}</p>
+            <div class="product glassmorphism p-4 rounded-2xl" v-for="product in store.getProducts" :key="product.model">
+                <p>{{ product.model }}</p>
                 <img src="https://cdn.pixabay.com/photo/2016/12/06/09/31/blank-1886008__340.png" alt="">
                 <div class="btns">
-                    <button class="w-6/12" @click="openPopup">Edit</button>
-                    <button class="w-6/12">Rush</button>
+                    <button class="w-6/12" @click="openPopup(product, $event)" id="edit-product">Edit</button>
+                    <button class="w-6/12" @click="deleteProduct(product.id)">Delete</button>
                 </div>
             </div>
         </div>
@@ -26,17 +26,25 @@
 <script setup>
 import AdminCategoryPopup from '../components/AdminCategoryPopup.vue';
 import { ref } from 'vue';
+import { useProductStore } from '../store/product';
 
+const store = useProductStore()
+store.loadProducts()
 const showPopup = ref(false);
+const popUpId = ref("")
+const popUpData = ref({})
 const props = defineProps({ openPopup: Function })
-const tShirts = [
-    { model: "Women T-Shirt", price: 19.99, model3dPath: "/assets/shirt_female.gltf", meshName: "T_shirt_women", imageModel: "/assets/shirt_female_image.png" },
-    { model: "Men T-Shirt", price: 21.99, model3dPath: "/assets/shirt_male.gltf", meshName: "T_shirt_male", imageModel: "/assets/shirt_male_image.png" },
-    { model: "Child T-Shirt", price: 24.99, model3dPath: "/assets/shirt_child.gltf", meshName: "T_shirt_child", imageModel: "/assets/shirt_child_image.png" },
-];
 
-function openPopup() {
+
+function openPopup(shirt, e) {
     showPopup.value = true;
+    popUpId.value = e.target.getAttribute("id")
+    popUpData.value = shirt
+}
+
+const deleteProduct = (id) => {
+    console.log(id)
+    store.deleteProduct(id)
 }
 
 function closePopup() {
@@ -99,7 +107,8 @@ button {
     border-top-right-radius: 0.5rem;
     background-color: var(--secondary-color);
 }
-.plus-button{
+
+.plus-button {
     display: grid;
     place-items: center;
     width: 2rem;
@@ -110,6 +119,7 @@ button {
     background-color: var(--primary-color);
     color: var(--secondary-color);
 }
+
 .filter-button {
     display: grid;
     place-items: center;
@@ -120,5 +130,4 @@ button {
     text-transform: capitalize;
 
 }
-
 </style>

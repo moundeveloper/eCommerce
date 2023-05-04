@@ -204,13 +204,15 @@ const changeColor = (newColor) => {
     justify-content: space-between;
 }
 
-.customize-wraper label {
-    cursor: pointer;
-}
+
 
 .customize-wraper ul {
     display: flex;
     gap: .5rem;
+}
+
+.customize-wraper label {
+    cursor: pointer;
 }
 
 .customize-wraper input[type="file"] {

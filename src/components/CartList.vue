@@ -8,6 +8,7 @@
             <img src="https://em-content.zobj.net/source/microsoft-teams/337/disappointed-face_1f61e.png" class="w-[5rem]"
                 alt="">
             Nessun prodotto nel carrello
+            <router-link :to="{ name: 'catalog' }">go to our products</router-link>
         </div>
     </div>
 </template>
@@ -31,5 +32,17 @@ const store = useCartStore()
     justify-content: center;
     grid-auto-flow: row;
     gap: 2.5rem 10rem;
+}
+
+a {
+    padding: 0.5rem;
+    background-color: var(--tertiary-color);
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 300;
+    border-radius: 0.5rem;
+    text-transform: capitalize;
+    margin-top: 1rem;
 }
 </style>

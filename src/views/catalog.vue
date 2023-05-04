@@ -4,12 +4,12 @@
         <div class="cards">
 
             <!-- Card template -->
-            <div class="card glassmorphism custom-shadow " v-for="shirt in tShirts" :key="shirt.model">
+            <div class="card glassmorphism custom-shadow " v-for="shirt in store.getProducts" :key="shirt.model">
                 <span class="model">{{ shirt.model }}</span>
                 <div class="img-wraper">
                     <img :src="shirt.imageModel" alt="" />
                 </div>
-                <div class="flex justify-between"><span>Prezzo : </span><span>{{ shirt.price }} €</span></div>
+                <div class="flex justify-between mt-auto"><span>Prezzo : </span><span>{{ shirt.price }} €</span></div>
 
                 <router-link :to="{ name: 'customize-shirt', query: shirt }">more</router-link>
             </div>
@@ -18,12 +18,11 @@
     </div>
 </template>
 <script setup>
+import { useProductStore } from '../store/product';
 
-const tShirts = [
-    { model: "Women T-Shirt", price: 19.99, model3dPath: "/assets/shirt_female.gltf", meshName: "T_shirt_women", imageModel: "/assets/shirt_female_image.png" },
-    { model: "Men T-Shirt", price: 21.99, model3dPath: "/assets/shirt_male.gltf", meshName: "T_shirt_male", imageModel: "/assets/shirt_male_image.png" },
-    { model: "Child T-Shirt", price: 24.99, model3dPath: "/assets/shirt_child.gltf", meshName: "T_shirt_child", imageModel: "/assets/shirt_child_image.png" },
-];
+const store = useProductStore()
+store.loadProducts()
+
 </script>
 
 <style scoped>
@@ -77,7 +76,8 @@ p {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-
+    background-image: url("/assets/darker_decoration.svg");
+    background-position: center;
 }
 
 a {

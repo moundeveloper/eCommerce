@@ -3,35 +3,78 @@
     <div class="popup-wraper">
       <div class="popup glassmorphism custom-shadow">
         <v-icon class="close-icon" name="md-close" scale="1.5" @click="closePopup" />
-        <div class="popup-content flex flex-col">
-          <h1>edit product</h1>
+        <div class="popup-content flex flex-col gap-5">
+          <h1 v-if="popUpId === 'add-product'">add product</h1>
+          <h1 v-else>edit product</h1>
           <!-- Tutti i setting qui -->
-          <div class="edit-wrapper flex grow flex-col">
-            <div class="selection">
-                <span >colors:</span>
-                <ul>
-                    <li v-for="color in defaultColors" :key="color.name" class="radio-btn"
-                        :style="{ backgroundColor: color.hexValue }" ></li>
-                </ul>
-            </div>
+          <div class="edit-wrapper flex grow flex-col px-10 py-5 justify-between gap-5">
 
-            <div class="selection">
-                <span>size:</span>
-                <ul>
-                    <li v-for="size in defaultSizes" :key="size" :class="{ 'active-size': size === activeSize }"
-                        class="radio-btn  grid place-items-center" >{{
-                            size }}</li>
-                </ul>
-            </div>
+            <div class="settings flex flex-col gap-14 grow px-5 p-5">
 
-            <div class="selection">
-                <span>quantità:</span>
+              <div class="selection">
+                <span>Nome prodotto</span>
+                <input v-model="itemModel" type="text" class="glassmorphism" placeholder="T shirt male">
+              </div>
+
+              <div class="selection">
+                <span>Prezzo prodotto</span>
+                <CustomInputNumber :emits="emits" @input-value="handleInputPrice" />
+              </div>
+
+              <div class="selection">
+                <span>Modello 3d:</span>
+                <label for="img" class="flex gap-1 items-center">
+                  <span>upload</span>
+                  <v-icon name="md-fileupload-round" fill="var(--primary-color)" />
+                </label>
+                <input v-on:change="item3dModel" @change="previewImg" type="file" id="img" name="img">
+              </div>
+
+              <div class="selection">
+                <span>Image:</span>
+                <label for="img" class="flex gap-1 items-center">
+                  <span>upload</span>
+                  <v-icon name="md-fileupload-round" fill="var(--primary-color)" />
+                </label>
+                <input v-on:change="item3dModel" @change="previewImg" type="file" id="img" name="img">
+              </div>
+
+              <div class="selection">
+                <span>Nome mesh modello 3d</span>
+                <input v-model="itemMesh" type="text" class="glassmorphism" placeholder="Nome mesh">
+              </div>
+
+              <div class="selection">
+                <span>colori disponibili:</span>
+                <ul>
+                  <li v-for="(color, index) in itemColors" :key="color.name">
+                    <input v-model="itemColors[index]" type="color" name="" id="" class="radio-btn"
+                      :style="{ backgroundColor: color.hexValue }">
+                  </li>
+                </ul>
+              </div>
+
+              <div class="selection">
+                <span>Taglie disponibili:</span>
+                <ul>
+                  <li v-for="size in defaultSizes" :key="size" class="size-product"
+                    :class="{ 'active-size': selectedSizes.includes(size) }" @click="toggleSelected(size)">{{
+                      size }} </li>
+                </ul>
+              </div>
+              <div class="selection">
+                <span>quantità prodotto:</span>
                 <CustomInputNumber :emits="emits" @input-value="handleInputNumber" />
+              </div>
             </div>
 
-            <button class="selection">add:</button>
-             
-        </div>
+            <div class="button-container">
+              <button v-if="popUpId === 'add-product'" class="btn-action" @click="addProduct">add</button>
+              <button v-else class="btn-action bg-[var(--tertiary-color)]">save</button>
+              <button class="btn-action glassmorphism" @click="closePopup">discard</button>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -39,33 +82,93 @@
 </template>
   
 <script setup>
-
-defineProps({
-  closePopup: Function
-})
+import { useProductStore } from '../store/product';
 import CustomInputNumber from "../components/CustomInputNumber.vue"
-const defaultColors = [{
-    hexValue: "#E52121",
-    value: 0xE52121
-},
-{
-    hexValue: "#BEE521",
-    value: 0xBEE521
-},
-{
-    hexValue: "#21E558",
-    value: 0x21E558
-},
-{
-    hexValue: "#695C6F",
-    value: 0x695C6F
-},
-{
-    hexValue: "#00B2FF",
-    value: 0x00B2FF
-},
-]
-const defaultSizes = ["XS", "S", "M", "L", "XL"]
+import { ref, watchEffect } from "vue";
+import { v4 as uuidv4 } from "uuid";
+
+const store = useProductStore()
+const defaultSizes = ['XXS',
+  'XS',
+  'S',
+  'M',
+  'L',
+  'XL',
+  'XXL',
+  'XXXL',
+  '4XL',
+  '5XL']
+const props = defineProps({
+  closePopup: Function,
+  popUpId: String,
+  popUpData: Object
+})
+const emits = defineEmits(['input-value']);
+const itemQuantity = ref(0)
+const itemPrice = ref(0)
+const itemModel = ref("")
+const item3dModel = ref("")
+const itemMesh = ref("")
+const itemImage = ref("")
+const itemColors = ref(["#E52121", "#BEE521", "#21E558", "#695C6F", "#00B2FF"])
+const selectedSizes = ref(['XS',
+  'S',
+  'M',
+  'L',
+  'XL']);
+
+
+const handleInputPrice = (data) => {
+  itemPrice.value = data
+}
+
+const handleInputNumber = (data) => {
+  itemQuantity.value = data
+}
+
+function toggleSelected(size) {
+  if (isSelected(size)) {
+    selectedSizes.value = selectedSizes.value.filter(s => s !== size)
+  } else {
+    selectedSizes.value.push(size)
+  }
+}
+
+function isSelected(size) {
+  return selectedSizes.value.includes(size)
+}
+
+
+const previewImg = async (event) => {
+  if (event.length > 1) {
+    alert('You can only select up to 5 files');
+  }
+
+  const file = event.target.value
+
+  if (!file) {
+    return;
+  }
+
+}
+
+const addProduct = () => {
+
+  /* if (!(itemModel.value && item3dModel.value && itemMesh.value && itemImage.value)) return */
+  const newProduct = {
+    id: uuidv4(),
+    model: itemModel.value,
+    model3d: item3dModel.value,
+    modelMesh: itemMesh.value,
+    amount: itemQuantity.value,
+    colors: itemColors.value,
+    image: itemImage.value,
+    sizes: selectedSizes.value,
+    price: itemPrice.value
+  }
+  store.addProduct(newProduct)
+  props.closePopup()
+}
 
 </script>
 
@@ -88,7 +191,20 @@ const defaultSizes = ["XS", "S", "M", "L", "XL"]
   border-radius: 1rem;
   padding: 1rem;
   padding-top: 4rem;
+  background-image: url("/assets/darker_decoration.svg");
+  background-position: center;
+}
 
+.size-product {
+  padding: 0.5rem 0.5rem;
+  outline: 1px solid var(--primary-color);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.active-size {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
 }
 
 .close-icon {
@@ -100,9 +216,12 @@ const defaultSizes = ["XS", "S", "M", "L", "XL"]
 
 }
 
+.settings {
+  overflow-y: auto;
+}
+
 .popup-content {
   display: flex;
-;
 }
 
 h1 {
@@ -110,41 +229,110 @@ h1 {
   text-transform: capitalize;
   align-self: center;
 }
-.radio-btn {
-    width: 1.7rem;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: transparent;
-    outline: 1px solid var(--secondary-color);
-    cursor: pointer;
-    font-weight: 300;
-    color: var(--secondary-color);
+
+input[type="text"] {
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  flex-grow: 1;
+  margin-left: 20rem;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid transparent;
+  font-weight: 300;
 }
-.popup-content{
+
+::placeholder {
+  color: var(--accent-color);
+
+}
+
+input[type="text"]:focus-visible {
+  border-bottom-color: var(--primary-color);
+}
+
+label {
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.radio-btn {
+  width: 1.7rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: transparent;
+  outline: 1px solid var(--accent-color);
+  cursor: pointer;
+  font-weight: 300;
+}
+
+input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+  outline: 1px solid var(--secondary-color);
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+.popup-content {
   height: 100%;
 }
-.edit-wrapper{
 
-  gap: 3.5rem;
-  
+.edit-wrapper {
+  overflow-y: auto;
+}
+
+.button-container {
+  display: flex;
 
 }
-.selection{
+
+.btn-action {
+  padding: 1rem 0;
+  border: transparent;
+  color: var(--primary-color);
+  text-transform: capitalize;
+  cursor: pointer;
+  flex-grow: 1;
+  border: 1px solid var(--primary-color);
+}
+
+.btn-action:first-child {
+  background-color: var(--tertiary-color);
+  border-bottom-left-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+}
+
+
+.btn-action:last-child {
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.btn-action:active {
+  outline: 1px solid var(--primary-color);
+}
+
+.selection {
   display: flex;
   justify-content: space-between;
-  
-  
 }
-ul{
+
+.selection ul {
   display: flex;
-  align-items: center;
+  gap: 0.5rem;
 }
 
-button{
-  
-  justify-self: flex-end;
-  width: 4rem;
-  color: var(--secondary-color);
+span:first-child {
+  font-weight: 400;
 }
-
 </style>

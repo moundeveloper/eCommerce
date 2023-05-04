@@ -124,9 +124,9 @@ const init = () => {
     controls.minPolarAngle = Math.PI / 2;
     controls.maxPolarAngle = Math.PI / 2;
     if (window.innerWidth < 900) {
-        controls.minDistance = 4.4
+        controls.minDistance = 4.7
     } else {
-        controls.minDistance = 3.7;
+        controls.minDistance = 4.5;
     }
     controls.maxDistance = 7;
     controls.update();
@@ -135,7 +135,7 @@ const init = () => {
         if (window.innerWidth < 900) {
             controls.minDistance = 4.7
         } else {
-            controls.minDistance = 4;
+            controls.minDistance = 4.5;
         }
     })
 

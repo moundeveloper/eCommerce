@@ -6,13 +6,22 @@
             <span>{{ store.getCartCounter }}</span>
         </div>
         <div class="flex justify-between">
-            <span>totale</span>
+            <span>costo</span>
             <span>{{ store.getCartTotal }}€</span>
         </div>
 
         <div class="flex justify-between">
             <span class="max-w-[20ch]">costi di spedizione e gestione previsti</span>
-            <span>gratis</span>
+
+            <span v-if="store.getCartTotal > 50">gratis</span>
+            <span v-else>5.99€</span>
+        </div>
+
+        <div class="flex justify-between">
+            <span class="max-w-[20ch]">Costo totale</span>
+
+            <span v-if="store.getCartTotal > 50">gratis</span>
+            <span v-else>5.99€</span>
         </div>
         <button @click="payCart">vai al pagamento</button>
     </div>
