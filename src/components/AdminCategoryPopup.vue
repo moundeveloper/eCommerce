@@ -18,7 +18,7 @@
 
               <div class="selection">
                 <span>Prezzo prodotto</span>
-                <CustomInputNumber :emits="emits" @input-value="handleInputPrice" />
+                <input class="input-number glassmorphism" v-model="itemPrice" type="number" name="" id="">
               </div>
 
               <div class="selection">
@@ -27,7 +27,7 @@
                   <span>upload</span>
                   <v-icon name="md-fileupload-round" fill="var(--primary-color)" />
                 </label>
-                <input v-on:change="item3dModel" @change="previewImg" type="file" id="img" name="img">
+                <input @change="set3dModel" type="file" id="img" name="3dmodel">
               </div>
 
               <div class="selection">
@@ -36,7 +36,15 @@
                   <span>upload</span>
                   <v-icon name="md-fileupload-round" fill="var(--primary-color)" />
                 </label>
-                <input v-on:change="item3dModel" @change="previewImg" type="file" id="img" name="img">
+                <input @change="setImage" type="file" id="img-product" name="img-product">
+              </div>
+
+              <div class="selection">
+                <span>Categoria prodotto</span>
+                <DropDownMenu v-if="isPopUpDataNotNull()" :defaultValue="popUpData.category" :options="defaultCategories"
+                  :emits="emits" @option-selected="handleCategory" />
+
+                <DropDownMenu v-else :options="defaultCategories" :emits="emits" @option-selected="handleCategory" />
               </div>
 
               <div class="selection">
@@ -64,13 +72,13 @@
               </div>
               <div class="selection">
                 <span>quantità prodotto:</span>
-                <CustomInputNumber :emits="emits" @input-value="handleInputNumber" />
+                <input class="input-number glassmorphism" v-model="itemQuantity" type="number" name="" id="">
               </div>
             </div>
 
             <div class="button-container">
               <button v-if="popUpId === 'add-product'" class="btn-action" @click="addProduct">add</button>
-              <button v-else class="btn-action bg-[var(--tertiary-color)]">save</button>
+              <button v-else class="btn-action bg-[var(--tertiary-color)]" @click="saveProduct">save</button>
               <button class="btn-action glassmorphism" @click="closePopup">discard</button>
             </div>
 
@@ -83,11 +91,12 @@
   
 <script setup>
 import { useProductStore } from '../store/product';
-import CustomInputNumber from "../components/CustomInputNumber.vue"
-import { ref, watchEffect } from "vue";
+import DropDownMenu from "./DropDownMenu.vue"
+import { ref, onMounted } from "vue";
 import { v4 as uuidv4 } from "uuid";
 
 const store = useProductStore()
+const emits = defineEmits(['option-selected', 'input-value']);
 const defaultSizes = ['XXS',
   'XS',
   'S',
@@ -98,12 +107,15 @@ const defaultSizes = ['XXS',
   'XXXL',
   '4XL',
   '5XL']
+
+const defaultCategories = [{ label: 'Men', value: 'men' }, { label: 'Women', value: 'women' }, { label: 'Children', value: 'children' }]
+
 const props = defineProps({
   closePopup: Function,
   popUpId: String,
   popUpData: Object
 })
-const emits = defineEmits(['input-value']);
+
 const itemQuantity = ref(0)
 const itemPrice = ref(0)
 const itemModel = ref("")
@@ -111,6 +123,7 @@ const item3dModel = ref("")
 const itemMesh = ref("")
 const itemImage = ref("")
 const itemColors = ref(["#E52121", "#BEE521", "#21E558", "#695C6F", "#00B2FF"])
+const itemCategory = ref("men")
 const selectedSizes = ref(['XS',
   'S',
   'M',
@@ -118,12 +131,25 @@ const selectedSizes = ref(['XS',
   'XL']);
 
 
-const handleInputPrice = (data) => {
-  itemPrice.value = data
-}
+const isPopUpDataNotNull = () => props.popUpData ?? false;
 
-const handleInputNumber = (data) => {
-  itemQuantity.value = data
+onMounted(() => {
+  const product = props.popUpData
+  if (product) {
+    itemModel.value = product.model
+    itemMesh.value = product.modelMesh
+    selectedSizes.value = product.sizes
+    itemPrice.value = product.price
+    itemQuantity.value = product.amount
+    item3dModel.value = product.model3d
+    itemImage.value = product.image
+    itemColors.value = product.colors
+    itemCategory.value = product.category
+  }
+})
+
+function handleCategory(data) {
+  itemCategory.value = data.value
 }
 
 function toggleSelected(size) {
@@ -139,7 +165,7 @@ function isSelected(size) {
 }
 
 
-const previewImg = async (event) => {
+/* const previewImg = async (event) => {
   if (event.length > 1) {
     alert('You can only select up to 5 files');
   }
@@ -150,7 +176,44 @@ const previewImg = async (event) => {
     return;
   }
 
+} */
+
+function readFileAsDataURL(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      resolve(reader.result);
+    };
+    reader.readAsDataURL(file);
+  });
 }
+
+const setImage = async (event) => {
+  if (event.length > 1) {
+    alert('You can only select up to 5 files');
+  }
+  if (!file) {
+    return;
+  }
+
+  const file = event.target.files[0];
+  console.log("ewhquieh " + file)
+
+  itemImage.value = await readFileAsDataURL(file)
+}
+const set3dModel = async (event) => {
+  if (event.length > 1) {
+    alert('You can only select up to 5 files');
+  }
+
+  const file = event.target.value
+  console.log(file)
+  if (!file) {
+    return;
+  }
+
+}
+
 
 const addProduct = () => {
 
@@ -161,12 +224,30 @@ const addProduct = () => {
     model3d: item3dModel.value,
     modelMesh: itemMesh.value,
     amount: itemQuantity.value,
+    category: itemCategory.value,
     colors: itemColors.value,
     image: itemImage.value,
     sizes: selectedSizes.value,
     price: itemPrice.value
   }
   store.addProduct(newProduct)
+  props.closePopup()
+}
+
+const saveProduct = () => {
+  const newProduct = {
+    id: props.popUpData.id,
+    model: itemModel.value,
+    model3d: item3dModel.value,
+    modelMesh: itemMesh.value,
+    amount: itemQuantity.value,
+    category: itemCategory.value,
+    colors: itemColors.value,
+    image: itemImage.value,
+    sizes: selectedSizes.value,
+    price: itemPrice.value
+  }
+  store.saveProduct(newProduct)
   props.closePopup()
 }
 
@@ -186,13 +267,25 @@ const addProduct = () => {
 }
 
 .popup {
-  min-width: 60%;
-  aspect-ratio: 2/1.3;
-  border-radius: 1rem;
+  min-width: 75%;
+  height: 100vh;
   padding: 1rem;
   padding-top: 4rem;
   background-image: url("/assets/darker_decoration.svg");
   background-position: center;
+}
+
+.input-number {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 0.5rem;
+  width: 10ch;
+  text-align: center;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
 }
 
 .size-product {

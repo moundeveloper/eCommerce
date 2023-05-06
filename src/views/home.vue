@@ -56,7 +56,7 @@
         </div>
         <span class="promozione">Promozione</span>
         <h2 class="sconto-text">15% di sconto sul tuo primo ordine.</h2>
-        <p class="paragraph">
+        <p class="paragraph text-center">
           Dont waste your time but hurry now to get stylish with our clothes
           brand.<br />Our products are made of high italian quality in diffrent
           color,sizes,models.<br />

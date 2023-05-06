@@ -1,34 +1,39 @@
 [
   {
-    "id": "bfa4bdde-0bd5-452c-9999-864acada62cb",
-    "model": "Women T-Shirt",
-    "price": 19.99,
-    "model3dPath": "/assets/cap_custom.gltf",
-    "meshName": "cap",
-    "imageModel": "/assets/shirt_female_image.png"
+    "id": "bfa4bdde-0bd5-452c-3333-864acada62cb",
+    "model": "t-shirt",
+    "model3d": "/assets/shirt_male.gltf",
+    "modelMesh": "T_shirt_male",
+    "amount": 20,
+    "category": "men",
+    "colors": ["#E52121", "#BEE521", "#21E558", "#695C6F", "#00B2FF"],
+    "image": "/assets/shirt_male_image.png",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "price": 21.99
   },
   {
-    "id": "bfa4bdde-0bd5-452c-3333-864acada62cb",
-    "model": "Men T-Shirt",
-    "price": 21.99,
-    "model3dPath": "/assets/shirt_male.gltf",
-    "meshName": "T_shirt_male",
-    "imageModel": "/assets/shirt_male_image.png"
+    "id": "bfa4bdde-0bd5-452c-9999-864acada62cb",
+    "model": "t-shirt",
+    "model3d": "/assets/cap_custom.gltf",
+    "modelMesh": "cap",
+    "amount": 20,
+    "category": "women",
+    "colors": ["#E52121", "#BEE521", "#21E558", "#695C6F", "#00B2FF"],
+    "image": "/assets/shirt_female_image.png",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "price": 19.99
   },
+
   {
     "id": "bfa4bdde-0bd5-452c-6666-864acada62cb",
-    "model": "Child T-Shirt",
-    "price": 24.99,
-    "model3dPath": "/assets/shirt_child.gltf",
-    "meshName": "T_shirt_child",
-    "imageModel": "/assets/shirt_child_image.png"
-  },
-  {
-    "id": "bfa4bdde-0bd5-452c-2222-864acada62cb",
-    "model": "Child T-Shirt",
-    "price": 24.99,
-    "model3dPath": "/assets/shirt_child.gltf",
-    "meshName": "T_shirt_child",
-    "imageModel": "/assets/shirt_child_image.png"
+    "model": "t-shirt",
+    "model3d": "/assets/shirt_children.gltf",
+    "modelMesh": "T_shirt_child",
+    "amount": 20,
+    "category": "children",
+    "colors": ["#E52121", "#BEE521", "#21E558", "#695C6F", "#00B2FF"],
+    "image": "/assets/shirt_child_image.png",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "price": 19.99
   }
 ]

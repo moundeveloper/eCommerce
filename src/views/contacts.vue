@@ -32,7 +32,7 @@
         <input type="email" id="" placeholder="email" class="glassmorphism">
         <input type="text" id="" placeholder="Number" class="glassmorphism">
         <input type="text" id="messages" placeholder="Messages" class="glassmorphism">
-        <input type="submit" value="Sumbit" id="sumbit">
+        <input class="cursor-pointer" type="submit" value="Sumbit" id="sumbit">
       </form>
     </div>
   </div>

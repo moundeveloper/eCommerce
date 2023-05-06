@@ -1,7 +1,5 @@
 <template>
-    <!-- Se hai aperto questo file per sbaglio 
-        torna sulla tua strada 
-        e non toccare niente che senno ti 🔪🩸💀 -->
+    <!-- Canvas container -->
     <div class="canvas-container">
         <div ref="containerRef" id="container"></div>
     </div>
@@ -17,23 +15,43 @@ import { DecalGeometry } from 'three/addons/geometries/DecalGeometry.js';
 const props = defineProps({
     color: Number,
     img: String,
-    tshirt: Object
+    product: Object
 })
 
 const currentColor = ref(props.color)
 const currentImg = ref("/assets/logo.jpg")
 const containerRef = ref(null)
-const currentShirt = ref({})
+const currenproduct = ref({})
 
-if (Object.keys(props.tshirt).length === 0) {
-    currentShirt.value = {
-        model: 'Men T-Shirt',
-        price: '21.99',
-        model3dPath: '/assets/shirt_male.gltf',
-        meshName: 'T_shirt_male'
+
+/* Default product if there are none */
+if (Object.keys(props.product).length === 0) {
+    currenproduct.value = {
+        id: "bfa4bdde-0bd5-452c-3333-864acada62cb",
+        model: "t-shirt",
+        model3d: "/assets/shirt_male.gltf",
+        modelMesh: "T_shirt_male",
+        amount: 20,
+        category: "men",
+        colors: [
+            "#E52121",
+            "#BEE521",
+            "#21E558",
+            "#695C6F",
+            "#00B2FF"
+        ],
+        image: "/assets/shirt_male_image.png",
+        sizes: [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        price: 21.99
     }
 } else {
-    currentShirt.value = props.tshirt
+    currenproduct.value = props.product
 }
 
 let renderer, scene, camera, controls, renderTarget, animationFrameId
@@ -84,11 +102,6 @@ const getImage = () => {
             const dataURL = canvas.toDataURL("image/png");
 
             resolve(dataURL)
-            /* canvas.toBlob(blob => {
-                console.log(blob)
-                const url = URL.createObjectURL(blob);
-                resolve(url);
-            }, 'image/png'); */
         };
         img.onerror = reject;
         img.src = snapshot;
@@ -157,7 +170,7 @@ const init = () => {
 
     // Load T-shirt 3D model
     const loader = new GLTFLoader()
-    loader.load(currentShirt.value.model3dPath, (gltf) => {
+    loader.load(currenproduct.value.model3d, (gltf) => {
         const model = gltf.scene
         model.position.set(0, 0, 0)
         const s = 5
@@ -181,7 +194,7 @@ const init = () => {
             scene.add(model)
 
             // Get mesh from GTLF model
-            const mesh = model.getObjectByName(currentShirt.value.meshName);
+            const mesh = model.getObjectByName(currenproduct.value.modelMesh);
             let canvas = document.createElement('canvas');
             let paddedTexture = null
             const textureLoader = new THREE.TextureLoader();

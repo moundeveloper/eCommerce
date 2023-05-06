@@ -1,6 +1,6 @@
 <template>
     <div class="h-full flex flex-col justify-start gap-10 pt-10 customizer-wraper ">
-        <ShirtRenderer ref="shirtRendererRef" :color="color" :img="img" :tshirt="route.query" />
+        <ShirtRenderer ref="shirtRendererRef" :color="color" :img="img" :product="route.query" />
         <div class="customize-wraper glassmorphism custom-shadow ">
             <h1>Personalizzazione T-shirt</h1>
 
@@ -114,7 +114,6 @@ const addToCart = async () => {
         singlePrice: modelPrice.value
     }
 
-    console.log(await shirtRendererRef.value.getImage())
     store.addCartItem(newCartItem)
 }
 
@@ -125,7 +124,6 @@ const processPrice = () => {
 const previewImg = async (event) => {
     if (event.length > 1) {
         alert('You can only select up to 5 files');
-        input.value = null;
     }
 
     const file = event.target.files[0];

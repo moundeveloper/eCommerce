@@ -8,6 +8,9 @@ export const useProductStore = defineStore("productStore", {
   }),
   getters: {
     getProducts: (state) => state.products,
+    getProductById: (state) => (id) => {
+      return state.products.find((product) => product.id === id);
+    },
   },
   actions: {
     loadProducts() {
@@ -24,6 +27,15 @@ export const useProductStore = defineStore("productStore", {
     },
     deleteProduct(id) {
       this.products = this.products.filter((product) => product.id !== id);
+      localStorage.setItem("products", JSON.stringify(this.products));
+    },
+    saveProduct(editedProduct) {
+      this.products = this.products.map((product) => {
+        if (product.id === editedProduct.id) {
+          return editedProduct;
+        }
+        return product;
+      });
       localStorage.setItem("products", JSON.stringify(this.products));
     },
   },

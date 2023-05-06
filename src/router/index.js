@@ -5,7 +5,6 @@ import Catalog from "../views/catalog.vue";
 import Cart from "../views/cart.vue";
 import Contacts from "../views/contacts.vue";
 import Admin from "../views/admin.vue";
-import AdminCategory from "../views/admin-category.vue";
 import CartItems from "../views/cart-items.vue";
 import CartHistory from "../views/cart-history.vue";
 
@@ -30,6 +29,12 @@ const routes = [
     name: "contacts",
     component: Contacts,
   },
+  ,
+  {
+    path: "/admin",
+    name: "admin",
+    component: Admin,
+  },
   {
     path: "/cart",
     name: "cart",
@@ -47,17 +52,6 @@ const routes = [
         component: CartHistory,
       },
     ],
-  },
-  ,
-  {
-    path: "/admin",
-    name: "admin",
-    component: Admin,
-  },
-  {
-    path: "/admin-category",
-    name: "admin-category",
-    component: AdminCategory,
   },
 ];
 
