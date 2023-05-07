@@ -9,7 +9,8 @@
                 <div class="img-wraper">
                     <img :src="shirt.imageModel" alt="" />
                 </div>
-                <div class="flex justify-between mt-auto"><span>Prezzo : </span><span>{{ shirt.price }} €</span></div>
+                <div class="flex justify-between mt-auto"><span>categoria </span><span>{{ shirt.category }}</span></div>
+                <div class="flex justify-between mt-auto"><span>Prezzo </span><span>{{ shirt.price }} €</span></div>
 
                 <router-link :to="{ name: 'customize-shirt', query: shirt }">more</router-link>
             </div>

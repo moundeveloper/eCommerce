@@ -23,20 +23,20 @@
 
               <div class="selection">
                 <span>Modello 3d:</span>
-                <label for="img" class="flex gap-1 items-center">
+                <label for="3d-model" class="flex gap-1 items-center">
                   <span>upload</span>
                   <v-icon name="md-fileupload-round" fill="var(--primary-color)" />
                 </label>
-                <input @change="set3dModel" type="file" id="img" name="3dmodel">
+                <input @change="set3dModel" type="file" id="3d-model" name="3dmodel">
               </div>
 
               <div class="selection">
                 <span>Image:</span>
-                <label for="img" class="flex gap-1 items-center">
+                <label for="img-product" class="flex gap-1 items-center">
                   <span>upload</span>
                   <v-icon name="md-fileupload-round" fill="var(--primary-color)" />
                 </label>
-                <input @change="setImage" type="file" id="img-product" name="img-product">
+                <input @change="setImage" type="file" id="img-product" name="imgproduct">
               </div>
 
               <div class="selection">
@@ -94,6 +94,7 @@ import { useProductStore } from '../store/product';
 import DropDownMenu from "./DropDownMenu.vue"
 import { ref, onMounted } from "vue";
 import { v4 as uuidv4 } from "uuid";
+import axios from 'axios';
 
 const store = useProductStore()
 const emits = defineEmits(['option-selected', 'input-value']);
@@ -116,6 +117,7 @@ const props = defineProps({
   popUpData: Object
 })
 
+const fileTemporary = ref({})
 const itemQuantity = ref(0)
 const itemPrice = ref(0)
 const itemModel = ref("")
@@ -191,32 +193,32 @@ function readFileAsDataURL(file) {
 const setImage = async (event) => {
   if (event.length > 1) {
     alert('You can only select up to 5 files');
+    return
   }
+  const file = event.target.files[0];
   if (!file) {
     return;
   }
 
-  const file = event.target.files[0];
-  console.log("ewhquieh " + file)
-
   itemImage.value = await readFileAsDataURL(file)
+  console.log(itemImage.value)
 }
 const set3dModel = async (event) => {
   if (event.length > 1) {
     alert('You can only select up to 5 files');
+    return
   }
-
-  const file = event.target.value
-  console.log(file)
+  const file = event.target.files[0];
   if (!file) {
     return;
   }
 
+  fileTemporary.value = file
 }
 
 
-const addProduct = () => {
-
+const addProduct = async () => {
+  await upload3DModel(fileTemporary.value)
   /* if (!(itemModel.value && item3dModel.value && itemMesh.value && itemImage.value)) return */
   const newProduct = {
     id: uuidv4(),
@@ -234,7 +236,26 @@ const addProduct = () => {
   props.closePopup()
 }
 
-const saveProduct = () => {
+const upload3DModel = async (file) => {
+  const formData = new FormData();
+  formData.append('model', file);
+
+  try {
+    const response = await axios.post('http://localhost:3000/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    item3dModel.value = response.data
+    console.log('Server response:', response.data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+const saveProduct = async () => {
+  await upload3DModel(fileTemporary.value)
+  console.log(item3dModel.value)
   const newProduct = {
     id: props.popUpData.id,
     model: itemModel.value,

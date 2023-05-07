@@ -11,6 +11,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DecalGeometry } from 'three/addons/geometries/DecalGeometry.js';
+import axios from "axios"
 
 const props = defineProps({
     color: Number,
@@ -21,38 +22,36 @@ const props = defineProps({
 const currentColor = ref(props.color)
 const currentImg = ref("/assets/logo.jpg")
 const containerRef = ref(null)
-const currenproduct = ref({})
+const currentProduct = ref({})
 
+const resolveModelLink = async (path) => {
+    const newPath = `\\${path}`
+    try {
+        const response = await axios.get(`http://localhost:3000/model?path=${newPath}`, {
+            responseType: 'blob'
+        });
+        console.log(response.data);
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        return url
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 /* Default product if there are none */
-if (Object.keys(props.product).length === 0) {
-    currenproduct.value = {
-        id: "bfa4bdde-0bd5-452c-3333-864acada62cb",
-        model: "t-shirt",
-        model3d: "/assets/shirt_male.gltf",
-        modelMesh: "T_shirt_male",
-        amount: 20,
-        category: "men",
-        colors: [
-            "#E52121",
-            "#BEE521",
-            "#21E558",
-            "#695C6F",
-            "#00B2FF"
-        ],
-        image: "/assets/shirt_male_image.png",
-        sizes: [
-            "XS",
-            "S",
-            "M",
-            "L",
-            "XL"
-        ],
-        price: 21.99
+currentProduct.value = props.product
+
+
+
+const model3dpath = async () => {
+    if (currentProduct.value.defaultProduct) {
+        return currentProduct.value.model3d
+    } else {
+        return await resolveModelLink(currentProduct.value.model3d)
     }
-} else {
-    currenproduct.value = props.product
 }
+
+
 
 let renderer, scene, camera, controls, renderTarget, animationFrameId
 
@@ -85,7 +84,7 @@ const snapshot = () => {
 
 }
 
-const getImage = () => {
+const getImage = async () => {
     const snapshot = renderer.domElement.toDataURL('image/png')
     return new Promise((resolve, reject) => {
         const canvas = document.createElement('canvas');
@@ -108,7 +107,7 @@ const getImage = () => {
     });
 }
 
-const init = () => {
+const init = async () => {
     // Initialize renderer
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     const aspectRatio = 1.3
@@ -152,10 +151,6 @@ const init = () => {
         }
     })
 
-    // Add axes helper
-    /* const axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper); */
-
     // Add lights
     const directionLight = new THREE.DirectionalLight(0xffffff, 0.2);
     directionLight.position.set(75, -300, 1000);
@@ -169,8 +164,10 @@ const init = () => {
     scene.add(directionLight);
 
     // Load T-shirt 3D model
-    const loader = new GLTFLoader()
-    loader.load(currenproduct.value.model3d, (gltf) => {
+    const loader = new GLTFLoader();
+
+
+    loader.load(await model3dpath(), (gltf) => {
         const model = gltf.scene
         model.position.set(0, 0, 0)
         const s = 5
@@ -194,7 +191,7 @@ const init = () => {
             scene.add(model)
 
             // Get mesh from GTLF model
-            const mesh = model.getObjectByName(currenproduct.value.modelMesh);
+            const mesh = model.getObjectByName(currentProduct.value.modelMesh);
             let canvas = document.createElement('canvas');
             let paddedTexture = null
             const textureLoader = new THREE.TextureLoader();
@@ -247,8 +244,11 @@ const init = () => {
         }
 
         animate()
-    })
-}
+        /*     }) */
+
+    });
+};
+
 
 
 

@@ -2,8 +2,8 @@
     <div class="h-full flex flex-col justify-start gap-10 pt-10 customizer-wraper ">
         <ShirtRenderer ref="shirtRendererRef" :color="color" :img="img" :product="route.query" />
         <div class="customize-wraper glassmorphism custom-shadow ">
-            <h1>Personalizzazione T-shirt</h1>
-
+            <h1>Personalizzazione T-shirt </h1>
+            <router-link to="/catalog" class="btn-ation-catalog">vai al catalogo</router-link>
             <div>
                 <span>colors:</span>
                 <ul>
@@ -16,7 +16,7 @@
                 <span>size:</span>
                 <ul>
                     <li v-for="size in defaultSizes" :key="size" :class="{ 'active-size': size === activeSize }"
-                        class="radio-btn  grid place-items-center" @click="changeSize(size)">{{
+                        class="size-block" @click="changeSize(size)">{{
                             size }}</li>
                 </ul>
             </div>
@@ -34,7 +34,8 @@
             </div>
             <div class="buttons">
                 <button @click="snapshotCall">snapshot</button>
-                <button @click="addToCart">add to cart</button>
+                <button @click="addToCart" v-if="route.query.amount > 0">add to cart</button>
+                <button v-else class="no-stock">out of stock</button>
             </div>
         </div>
     </div>
@@ -73,7 +74,7 @@ const defaultColors = [{
 ]
 
 const amount = ref(null)
-const defaultSizes = ["XS", "S", "M", "L", "XL"]
+const defaultSizes = route.query.sizes
 const emits = defineEmits(['input-value']);
 const store = useCartStore()
 const color = ref(0xE52121)
@@ -162,10 +163,7 @@ const changeColor = (newColor) => {
     color: var(--secondary-color);
 }
 
-.active-size {
-    color: var(--primary-color);
-    background-color: var(--secondary-color);
-}
+
 
 
 .customize-wraper {
@@ -191,6 +189,19 @@ const changeColor = (newColor) => {
     color: var(--primary-color);
 }
 
+.size-block {
+    padding: 0.3rem 0.9rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    border: 1px solid var(--accent-color);
+}
+
+.active-size {
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    border: transparent;
+}
+
 .customize-wraper input[type="number"] {
     color: var(--secondary-color);
     max-width: 6ch;
@@ -202,7 +213,16 @@ const changeColor = (newColor) => {
     justify-content: space-between;
 }
 
-
+.btn-ation-catalog {
+    background-color: var(--tertiary-color);
+    width: fit-content;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    font-weight: 200;
+    font-size: 0.8rem;
+}
 
 .customize-wraper ul {
     display: flex;
@@ -225,6 +245,7 @@ const changeColor = (newColor) => {
     color: var(--primary-color);
 }
 
+
 .customize-wraper button:last-child {
     outline: 1px solid;
     background-color: transparent;
@@ -241,6 +262,8 @@ const changeColor = (newColor) => {
     cursor: pointer;
     text-transform: capitalize;
 }
+
+
 
 @media screen and (min-width: 900px) {
     .customizer-wraper {

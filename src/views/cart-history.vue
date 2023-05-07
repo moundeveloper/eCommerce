@@ -66,7 +66,7 @@
             <div class="flex flex-col w-[30rem] p-4 gap-4 cart-history-item-details">
                 <h2 class="capitalize">dettagli carrello</h2>
                 <div class="flex justify-between">
-                    <span>items</span>
+                    <span>prodotti</span>
                     <span>{{ cartHistoryItem.cartItemLength }}</span>
                 </div>
                 <div class="flex justify-between">

@@ -33,7 +33,8 @@ const store = useCartStore()
 
 const costoSpedizione = 5.99
 const sumTotal = (cartTotal) => {
-    if (store.getCartTotal > 50) return cartTotal
+    if (cartTotal < 1) return 0
+    if (cartTotal > 50) return cartTotal
     return (parseFloat(cartTotal) + costoSpedizione).toFixed(2)
 }
 const payCart = () => {

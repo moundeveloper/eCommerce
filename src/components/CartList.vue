@@ -8,7 +8,7 @@
             <img src="https://em-content.zobj.net/source/microsoft-teams/337/disappointed-face_1f61e.png" class="w-[5rem]"
                 alt="">
             Nessun prodotto nel carrello
-            <router-link :to="{ name: 'catalog' }">go to our products</router-link>
+            <router-link :to="{ name: 'catalog' }">vai al catalogo</router-link>
         </div>
     </div>
 </template>

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "gsap": "^3.11.5",
     "oh-vue-icons": "^1.0.0-rc3",

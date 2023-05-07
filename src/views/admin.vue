@@ -1,5 +1,5 @@
 <template>
-    <AdminCategoryPopup v-if="showPopup" :closePopup="closePopup" :popUpId="popUpId" :popUpData="popUpData" />
+    <AdminPopup v-if="showPopup" :closePopup="closePopup" :popUpId="popUpId" :popUpData="popUpData" />
     <div class="flex flex-col px-20">
         <div class="self-center flex flex-col items-center gap-5">
             <h1>Admin</h1>
@@ -8,14 +8,15 @@
 
 
         <div class="products-bar flex flex-row px-20">
-            <button class="filter-button p-1 ">filter</button>
-            <p class="p-1">Prodotti disponibili: </p>
+            <button class="filter-button px-10">filter</button>
+
         </div>
         <div class="prodcuts-wraper flex flex-col gap-4 my-10">
             <div class="products-head grid-products  place-items-center glassmorphism rounded-lg px-4 py-[0.5rem]">
                 <span v-for="column in gridColumns">
                     {{ column }}
                 </span>
+                <span class="product-counter">prodotti: {{ store.getProducts.length }} </span>
             </div>
             <div class="products flex flex-col gap-4">
                 <div class="product grid-products place-items-center glassmorphism p-4 rounded-2xl"
@@ -32,8 +33,7 @@
                         <div class="text-[0.8rem]" v-for="size in product.sizes">{{ size }}</div>
                     </div>
                     <img :src="product.image" alt="">
-                    <span>{{ product.model3d }}</span>
-                    <span>{{ product.modelMesh }}</span>
+
 
                     <button class="w-6/12" @click="openPopup(product, $event)" id="edit-product">
                         <v-icon name="md-edit" scale="1.2" />
@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import AdminCategoryPopup from '../components/AdminCategoryPopup.vue';
+import AdminPopup from '../components/AdminPopup.vue';
 import { ref } from 'vue';
 import { useProductStore } from '../store/product';
 
@@ -60,7 +60,7 @@ const showPopup = ref(false);
 const popUpId = ref("")
 const popUpData = ref({})
 const props = defineProps({ openPopup: Function })
-const gridColumns = ["modello", "categoria", "price", "quantità", "colori", "taglie", "img", "3d-model", "mesh"]
+const gridColumns = ["modello", "categoria", "price", "quantità", "colori", "taglie", "img"]
 
 
 function openPopup(product, e) {
@@ -85,10 +85,14 @@ function closePopup() {
 
 }
 
+.product-counter {
+    grid-column: 8/10;
+}
+
 
 .grid-products {
     display: grid;
-    grid-template-columns: repeat(9, minmax(0, 1fr)) 0.7fr 0.7fr;
+    grid-template-columns: repeat(7, minmax(0, 1fr)) 0.7fr 0.7fr;
     grid-auto-flow: row;
 }
 
@@ -193,16 +197,5 @@ button {
     border: transparent;
     background-color: var(--primary-color);
     color: var(--secondary-color);
-}
-
-.filter-button {
-    display: grid;
-    place-items: center;
-    border-radius: 0.5rem;
-    border: transparent;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    text-transform: capitalize;
-
 }
 </style>

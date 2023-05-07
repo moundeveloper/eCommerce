@@ -13,7 +13,7 @@
           <br />
           spirito creativo.
         </p>
-        <router-link to="/customize-shirt">Esplora</router-link>
+        <router-link :to="{ name: 'customize-shirt', query: defaultProduct }">Esplora</router-link>
       </div>
 
       <ShowcaseSlider class="showcaseslider" />
@@ -71,6 +71,32 @@
 
 <script setup>
 import ShowcaseSlider from "../components/ShowcaseSlider.vue";
+
+const defaultProduct = {
+  id: "bfa4bdde-0bd5-452c-3333-864acada62cb",
+  defaultProduct: true,
+  model: "t-shirt",
+  model3d: "/assets/shirt_male.gltf",
+  modelMesh: "T_shirt_male",
+  amount: 20,
+  category: "men",
+  colors: [
+    "#E52121",
+    "#BEE521",
+    "#21E558",
+    "#695C6F",
+    "#00B2FF"
+  ],
+  image: "/assets/shirt_male_image.png",
+  sizes: [
+    "XS",
+    "S",
+    "M",
+    "L",
+    "XL"
+  ],
+  price: 21.99
+}
 </script>
 
 <style scoped>

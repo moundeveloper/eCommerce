@@ -19,7 +19,6 @@
       <v-icon name="md-close" fill="var(--secondary-color)" scale="1.5" />
     </button>
     <router-link to="/">Home</router-link>
-    <router-link to="/customize-shirt">Customize</router-link>
     <router-link to="/catalog">Catalog</router-link>
     <router-link to="/contacts">Contacts</router-link>
   </nav>
