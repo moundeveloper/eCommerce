@@ -22,7 +22,7 @@
             </div>
             <div>
                 <span class="mr-auto">prodotti rimanenti: {{ route.query.amount }}</span>
-                <CustomInputNumber :max="route.query.amount" :emits="emits" @input-value="handleInputNumber" />
+                <CustomInputNumber :max="parseFloat(route.query.amount)" :emits="emits" @input-value="handleInputNumber" />
             </div>
             <div>
                 <span>immagine:</span>
@@ -52,27 +52,15 @@ import { useProductStore } from '../store/product';
 
 const route = useRoute()
 
-const defaultColors = [{
-    hexValue: "#E52121",
-    value: 0xE52121
-},
-{
-    hexValue: "#BEE521",
-    value: 0xBEE521
-},
-{
-    hexValue: "#21E558",
-    value: 0x21E558
-},
-{
-    hexValue: "#695C6F",
-    value: 0x695C6F
-},
-{
-    hexValue: "#00B2FF",
-    value: 0x00B2FF
-},
-]
+function hexColorsToObjectArray(hexColors) {
+    return hexColors.map(hexColor => {
+        const hexValue = hexColor.toUpperCase();
+        const value = parseInt(hexValue.slice(1), 16);
+        return { hexValue, value };
+    });
+}
+
+const defaultColors = hexColorsToObjectArray(route.query.colors)
 
 const amount = ref(null)
 const defaultSizes = route.query.sizes

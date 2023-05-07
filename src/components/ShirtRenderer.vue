@@ -44,7 +44,7 @@ currentProduct.value = props.product
 
 
 const model3dpath = async () => {
-    if (currentProduct.value.defaultProduct) {
+    if (currentProduct.value.model3d.includes("assets")) {
         return currentProduct.value.model3d
     } else {
         return await resolveModelLink(currentProduct.value.model3d)

@@ -45,20 +45,22 @@
         <span class="promozione">Promozione</span>
         <h2 class="sconto-text">15% di sconto sul tuo primo ordine.</h2>
         <p class="paragraph text-center">
-          Dont waste your time but hurry now to get stylish with our clothes
-          brand.<br />Our products are made of high italian quality in diffrent
-          color,sizes,models.<br />
-          So what are you waiting for ? Hurry up and you will get a 15% discount for
-          the first product you buy
+          Non perdere tempo, ma sbrigati ora per essere alla moda con il nostro marchio di abbigliamento.
+          <br>
+          I nostri prodotti sono realizzati di alta qualità italiana in diversi colori, dimensioni, modelli.
+          <br>
+          Allora, cosa stai aspettando ? Affrettati e avrai uno sconto del 15% sul primo prodotto che acquisti
         </p>
-        <button class="cursor-pointer">Iscriviti</button>
+        <router-link to="/catalog" class="cursor-pointer">More</router-link>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
+import { onMounted } from "vue"
 import ShowcaseSlider from "../components/ShowcaseSlider.vue";
+import { gsap } from "gsap";
 
 const defaultProduct = {
   id: "bfa4bdde-0bd5-452c-3333-864acada62cb",
@@ -85,6 +87,26 @@ const defaultProduct = {
   ],
   price: 21.99
 }
+
+onMounted(() => {
+  const title = document.querySelector('h1');
+  gsap.from(title, {
+    opacity: 0,
+    x: "-50%",
+    duration: 1,
+    ease: "power2.inOut"
+  });
+
+
+  const navbar = document.querySelector('header');
+  gsap.from(navbar, {
+    opacity: 0,
+    y: "-50%",
+    duration: 1,
+    ease: "power2.inOut"
+  });
+
+})
 </script>
 
 <style scoped>
@@ -218,7 +240,7 @@ button {
   border-radius: 0.5rem;
   padding: 1rem;
   aspect-ratio: 16/9;
-  height: 17.5rem;
+  height: 15rem;
   position: relative;
 }
 

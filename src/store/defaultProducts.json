@@ -7,19 +7,19 @@
     "amount": 20,
     "category": "men",
     "colors": ["#E52121", "#BEE521", "#21E558", "#695C6F", "#00B2FF"],
-    "image": "/assets/shirt_male_image.png",
+    "image": "/assets/male_shirt.png",
     "sizes": ["XS", "S", "M", "L", "XL"],
     "price": 21.99
   },
   {
     "id": "bfa4bdde-0bd5-452c-9999-864acada62cb",
     "model": "t-shirt",
-    "model3d": "/assets/cap_custom.gltf",
-    "modelMesh": "cap",
+    "model3d": "/assets/shirt_women.gltf",
+    "modelMesh": "T_shirt_female",
     "amount": 20,
     "category": "women",
     "colors": ["#E52121", "#BEE521", "#21E558", "#695C6F", "#00B2FF"],
-    "image": "/assets/shirt_female_image.png",
+    "image": "/assets/female_shirt.png",
     "sizes": ["XS", "S", "M", "L", "XL"],
     "price": 19.99
   },
@@ -28,11 +28,11 @@
     "id": "bfa4bdde-0bd5-452c-6666-864acada62cb",
     "model": "t-shirt",
     "model3d": "/assets/shirt_children.gltf",
-    "modelMesh": "T_shirt_child",
+    "modelMesh": "T_shirt_children",
     "amount": 20,
     "category": "children",
     "colors": ["#E52121", "#BEE521", "#21E558", "#695C6F", "#00B2FF"],
-    "image": "/assets/shirt_child_image.png",
+    "image": "/assets/children_shirt.png",
     "sizes": ["XS", "S", "M", "L", "XL"],
     "price": 19.99
   }

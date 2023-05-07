@@ -20,6 +20,7 @@ export const useProductStore = defineStore("productStore", {
       } else {
         this.products = defaultProducts;
       }
+      localStorage.setItem("products", JSON.stringify(this.products));
     },
     addProduct(newProduct) {
       this.products.push(newProduct);
