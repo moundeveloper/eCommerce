@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full flex flex-col my-12 gap-10 px-5">
+  <div class="h-full flex flex-col my-12 gap-5 px-5">
     <section class="hero-section">
       <h1 ref="titleRef" class="hero-title">
         We are looking
@@ -20,17 +20,6 @@
       <div class="slider"></div>
     </section>
 
-    <section class="flex flex-col gap-5">
-      <div class="products-showcase">
-        <div class="big-one">1</div>
-        <div class="three">3</div>
-        <div class="two">2</div>
-        <div class="four">4</div>
-        <div class="five">5</div>
-      </div>
-      <router-link to="/catalog" class="self-center cursor-pointer">Show more</router-link>
-    </section>
-
     <section class="testimonial flex text-[2rem] justify-center gap-30">
       <h2 class="capitalize">
         <span class="font-light">what people say</span>
@@ -38,18 +27,17 @@
         <span class="font-light">about us.</span>
       </h2>
       <div class="testimonial-card glassmorphism custom-shadow">
-        <p>“Non avevo mai ordinato una maglietta personalizzata prima</p>
-        <p>d'ora, ma devo dire che
+        <p>“Non avevo mai ordinato una maglietta personalizzata prima
+          d'ora, ma devo dire che
           l'esperienza
-          sul tuo sito è stata</p>
-        <p>fantastica! La maglietta è perfetta! La qualità del tessuto e della
-        </p>
-        <p>stampa è ottima, arrivata in meno di una settimana!</p>
+          sul tuo sito è stata
+          fantastica! La maglietta è perfetta! La qualità del tessuto e della stampa è ottima
+          , arrivata in meno di una settimana!</p>
         <p class="end">Maria DiBi</p>
       </div>
     </section>
 
-    <section>
+    <section class="mt-10">
       <div class="sconto glassmorphism custom-shadow">
         <div class="circle-icon">
           <v-icon name="md-send" class="send-icon" fill="black" scale="1.5" />
@@ -198,12 +186,8 @@ button {
   justify-content: center;
 }
 
-
-
-
-
 .end {
-  margin: 15px;
+  margin: 1rem;
 }
 
 .sconto {
@@ -270,12 +254,9 @@ section a {
   font-weight: 400;
 }
 
-
 @media screen and (max-width: 900px) {
   .h-full {
     flex-direction: column;
-    gap: 10rem;
-    gap: 5rem;
     text-align: center;
   }
 

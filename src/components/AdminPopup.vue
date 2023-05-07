@@ -254,8 +254,11 @@ const upload3DModel = async (file) => {
 }
 
 const saveProduct = async () => {
-  await upload3DModel(fileTemporary.value)
-  console.log(item3dModel.value)
+  if (item3dModel.value !== props.popUpData.model3d) {
+    await upload3DModel(fileTemporary.value)
+  } else {
+    item3dModel.value = props.popUpData.model3d
+  }
   const newProduct = {
     id: props.popUpData.id,
     model: itemModel.value,

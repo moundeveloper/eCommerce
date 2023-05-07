@@ -6,11 +6,6 @@
             <button class="plus-button p-1" @click="openPopup(null, $event)" id="add-product">+</button>
         </div>
 
-
-        <div class="products-bar flex flex-row px-20">
-            <button class="filter-button px-10">filter</button>
-
-        </div>
         <div class="prodcuts-wraper flex flex-col gap-4 my-10">
             <div class="products-head grid-products  place-items-center glassmorphism rounded-lg px-4 py-[0.5rem]">
                 <span v-for="column in gridColumns">

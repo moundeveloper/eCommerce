@@ -25,8 +25,11 @@ const step = ref(1);
 const inputValueRef = ref(1);
 const props = defineProps({
     inputValue: Number,
+    max: Number
 })
 const emits = defineEmits(['input-value']);
+max.value = props.max
+
 
 onMounted(() => {
     setDefaultSelectedOption()

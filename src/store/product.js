@@ -38,5 +38,15 @@ export const useProductStore = defineStore("productStore", {
       });
       localStorage.setItem("products", JSON.stringify(this.products));
     },
+    deductAmount(id, amount) {
+      this.products.map((product) => {
+        if (product.id === id) {
+          product.amount -= amount;
+          return product;
+        }
+        return product;
+      });
+      localStorage.setItem("products", JSON.stringify(this.products));
+    },
   },
 });

@@ -21,8 +21,8 @@
                 </ul>
             </div>
             <div>
-                <span>quantità:</span>
-                <CustomInputNumber :emits="emits" @input-value="handleInputNumber" />
+                <span class="mr-auto">prodotti rimanenti: {{ route.query.amount }}</span>
+                <CustomInputNumber :max="route.query.amount" :emits="emits" @input-value="handleInputNumber" />
             </div>
             <div>
                 <span>immagine:</span>
@@ -48,6 +48,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ref, onMounted } from 'vue';
 import { useRoute } from "vue-router"
 import CustomInputNumber from "../components/CustomInputNumber.vue"
+import { useProductStore } from '../store/product';
 
 const route = useRoute()
 
@@ -77,6 +78,7 @@ const amount = ref(null)
 const defaultSizes = route.query.sizes
 const emits = defineEmits(['input-value']);
 const store = useCartStore()
+const pStore = useProductStore()
 const color = ref(0xE52121)
 const img = ref(null)
 const activeSize = ref(defaultSizes[0]);
@@ -115,6 +117,8 @@ const addToCart = async () => {
         singlePrice: modelPrice.value
     }
 
+    if (route.query.amount - amount.value < 0) return
+    pStore.deductAmount(route.query.id, amount.value)
     store.addCartItem(newCartItem)
 }
 
