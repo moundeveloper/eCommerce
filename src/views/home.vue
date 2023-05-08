@@ -225,7 +225,7 @@ button {
 }
 
 .end {
-  margin: 1rem;
+  margin-left: 0.5rem;
 }
 
 .sconto {
@@ -254,10 +254,10 @@ button {
   display: grid;
   flex-direction: column;
   border-radius: 0.5rem;
+  gap: 0.5rem;
   padding: 1rem;
-  aspect-ratio: 16/9;
-  height: 15rem;
   position: relative;
+  max-width: 30rem;
 }
 
 
