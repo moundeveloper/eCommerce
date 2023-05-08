@@ -62,7 +62,7 @@ function hexColorsToObjectArray(hexColors) {
 
 const defaultColors = hexColorsToObjectArray(route.query.colors)
 
-const amount = ref(null)
+const amount = ref(1)
 const defaultSizes = route.query.sizes
 const emits = defineEmits(['input-value']);
 const store = useCartStore()

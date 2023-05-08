@@ -197,8 +197,8 @@ const init = async () => {
             const textureLoader = new THREE.TextureLoader();
             textureLoader.load(currentImg.value, (texture) => {
 
-                texture.image.width = 500
-                texture.image.height = 500
+                texture.image.width = 1000
+                texture.image.height = 1000
                 canvas.width = texture.image.width + 2000   // Add 20 pixels of padding on each side
                 canvas.height = texture.image.height + 2000
                 const context = canvas.getContext('2d');

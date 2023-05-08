@@ -7,14 +7,17 @@
             </div>
             <div class="flex justify-between">
                 <span>Quantità :</span>
-                <CustomInputNumber :emits="emits" :inputValue="itemQuantity" @input-value="handleInputNumber" />
+                <CustomInputNumber :emits="emits" :inputValue="cartItem.amount" @input-value="handleInputNumber" />
             </div>
             <div class="flex justify-between">
-                <span>Prezzo : </span>
+                <span>Taglia </span>
+                <span>{{ cartItem.size }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span>Prezzo </span>
                 <span>{{ cartItem.totalPrice }} €</span>
             </div>
             <div class="btns flex justify-between">
-                <button @click="editCartItem">edit</button>
                 <button @click="removeFromCart">remove</button>
             </div>
         </div>
@@ -24,13 +27,16 @@
 <script setup>
 import { useCartStore } from '../store/cart';
 import CustomInputNumber from "./CustomInputNumber.vue"
-import { ref } from "vue"
-
+import { ref, onMounted } from "vue"
+import { useRouter } from 'vue-router';
 
 const store = useCartStore()
 const props = defineProps({
     cartItem: Object
 })
+const router = useRouter()
+
+console.log(props.cartItem.amount)
 const emits = defineEmits(['input-value']);
 const itemQuantity = ref(props.cartItem.amount)
 
@@ -39,9 +45,6 @@ const removeFromCart = () => {
     store.removeFromCart(props.cartItem.id)
 }
 
-const editCartItem = () => {
-
-}
 
 const handleInputNumber = (data) => {
     itemQuantity.value = data
@@ -89,7 +92,7 @@ p {
 
 .btns button {
     padding: 0.7rem 0;
-    width: 50%;
+    width: 100%;
     text-align: center;
     border: transparent;
     text-decoration: none;

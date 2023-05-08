@@ -1,12 +1,12 @@
 <template>
-  <div class="h-full flex flex-col my-12 gap-5 px-5">
+  <div class="h-full flex flex-col my-12 gap-10 px-5">
     <section class="hero-section">
       <h1 ref="titleRef" class="hero-title">
         We are looking
         to make you
         Awesome.
       </h1>
-      <div class="hero-content flex flex-col gap-5">
+      <div class="hero-content flex flex-col gap-10">
         <p>
           Eleva il tuo stile con la nostra collezione di magliette <br />
           personalizzate, create su misura per esprimere la tua unicità e il tuo
@@ -92,8 +92,8 @@ onMounted(() => {
   const title = document.querySelector('h1');
   gsap.from(title, {
     opacity: 0,
-    x: "-50%",
-    duration: 1,
+    x: "-20%",
+    duration: 2,
     ease: "power2.inOut"
   });
 
@@ -102,7 +102,23 @@ onMounted(() => {
   gsap.from(navbar, {
     opacity: 0,
     y: "-50%",
-    duration: 1,
+    duration: 2,
+    ease: "power2.inOut"
+  });
+
+  const showcaseslider = document.querySelector('.showcaseslider');
+  gsap.from(showcaseslider, {
+    opacity: 0,
+    y: "10%",
+    duration: 2,
+    ease: "power2.inOut"
+  });
+
+  const heroContent = document.querySelector('.hero-content');
+  gsap.from(heroContent, {
+    opacity: 0,
+    y: "10%",
+    duration: 2,
     ease: "power2.inOut"
   });
 
@@ -280,12 +296,15 @@ section a {
   .h-full {
     flex-direction: column;
     text-align: center;
+    gap: 0;
   }
 
   .hero-section {
     grid-template-columns: 1fr;
-    grid-template-rows: 0.5fr 1fr 0.5fr 0.1fr;
+    grid-template-rows: 0.2fr 1fr 0.5fr 0.1fr;
+    gap: 0;
   }
+
 
   .showcaseslider {
     grid-row: 2/3;

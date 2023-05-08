@@ -15,7 +15,9 @@ export const useProductStore = defineStore("productStore", {
   actions: {
     loadProducts() {
       const localProducts = JSON.parse(localStorage.getItem("products"));
-      if (localProducts) {
+      if (localProducts === null)
+        localStorage.setItem("products", JSON.stringify([]));
+      if (localProducts.length) {
         this.products = localProducts;
       } else {
         this.products = defaultProducts;

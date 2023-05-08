@@ -36,10 +36,9 @@ export const useCartStore = defineStore("cartStore", {
     /* Cart actions */
     loadCart() {
       const localCart = JSON.parse(localStorage.getItem("cart"));
-      if (localCart) this.cart = localCart;
-    },
-    setMerch() {
-      /* TO-DO */
+      console.log(localCart);
+      if (localCart === null) localStorage.setItem("cart", JSON.stringify([]));
+      if (localCart.length) this.cart = localCart;
     },
     setCartItem(editedCartItem) {
       this.cart.map((cartItem) => {
@@ -51,6 +50,7 @@ export const useCartStore = defineStore("cartStore", {
       localStorage.setItem("cart", JSON.stringify(this.cart));
     },
     addCartItem(cartItem) {
+      console.log(cartItem);
       this.cart.push(cartItem);
       localStorage.setItem("cart", JSON.stringify(this.cart));
     },

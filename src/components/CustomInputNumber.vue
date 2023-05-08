@@ -3,7 +3,7 @@
         <!--         <span  contenteditable="true" @keyup="updateValue" ref="inputValueRef">{{
             inputValueRef.innerText
         }}</span> -->
-        <input class="grow max-w-[5ch]" type="number" name="" id="" v-model="inputValueRef">
+        <input class="grow max-w-[5ch]" readonly type="number" name="" id="" v-model="inputValueRef">
         <div class="flex flex-col">
             <button @click="increment">
                 <v-icon name="fa-angle-up" fill="var(--primary-color)" class="vicon" scale="0.8" />
@@ -30,18 +30,16 @@ const props = defineProps({
 const emits = defineEmits(['input-value']);
 max.value = props.max
 
+if (props.inputValue) {
+    inputValueRef.value = props.inputValue
+}
 
-onMounted(() => {
-    setDefaultSelectedOption()
-})
 
 watchEffect(() => {
-    if (inputValueRef.value.toString().length > 2) {
-        inputValueRef.value = max.value
-    }
 
-    if (parseInt(inputValueRef.value) < 0) {
-        inputValueRef.value = 0
+
+    if (parseInt(inputValueRef.value) < 1) {
+        inputValueRef.value = 1
     }
 
     if (parseInt(inputValueRef.value) > max.value) {
@@ -53,20 +51,16 @@ watchEffect(() => {
 })
 
 // Set the default selected option if one is not provided
-const setDefaultSelectedOption = () => {
-    inputValueRef.value = props.inputValue || 1;
-    emits('input-value', inputValueRef.value);
-}
 
 function increment() {
-    inputValueRef.value = Math.min(inputValueRef.value + step.value, max.value);
+    inputValueRef.value = parseInt(inputValueRef.value) + step.value
     if (inputValueRef.value > max)
         inputValueRef.value = max
     emits('input-value', inputValueRef.value);
 }
 
 function decrement() {
-    inputValueRef.value = Math.max(inputValueRef.value - step.value, min.value);
+    inputValueRef.value = parseInt(inputValueRef.value) - step.value
     if (inputValueRef.value < 0)
         inputValueRef.value = 0
     emits('input-value', inputValueRef.value);
@@ -99,6 +93,7 @@ input[type="number"] {
     text-align: center;
     font-size: 1rem;
     font-weight: 400;
+    outline: none;
 }
 
 input[type=number]::-webkit-inner-spin-button,

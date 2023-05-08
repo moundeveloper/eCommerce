@@ -1,7 +1,4 @@
 <template>
-    <!-- Se hai aperto questo file per sbaglio 
-        torna sulla tua strada 
-        e non toccare niente che senno ti 🔪🩸💀 -->
     <div ref="containerRef" id="container"></div>
 </template>
 
